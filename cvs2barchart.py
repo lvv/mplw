@@ -3,6 +3,9 @@
 import os, sys
 from optparse import *
 
+from matplotlib.pyplot import barh, title, grid , savefig, yticks, xlabel
+import numpy as np
+
 __AUTHOR__ = "Gouichi Iisaka <iisaka51@gmail.com>"
 __VERSION__ = '1.1.3'
 
@@ -114,9 +117,34 @@ LICENSE
         saved_cwd = os.getcwd()
         os.chdir(outdir)
         try:
-            cmd = '%s -Tpng "%s" > "%s"' % (
-                        self.options.layout, infile, outfile)
-            self.systemcmd(cmd)
+		#cmd = '%s -Tpng "%s" > "%s"' % (self.options.layout, infile, outfile)
+		#self.systemcmd(cmd)
+		#########################################################
+		in_file = open(infile, "r")
+		in_title = in_file.readline()
+		in_val = []
+		in_label = []
+
+		while True:
+			in_line = in_file.readline()
+			if not in_line:
+				break
+			in_line = in_line[:-1]
+			line_val, line_lable = in_line.split(",")
+			in_val.append(int(line_val))
+			in_label.append(line_lable.strip())	
+		in_file.close()
+
+		pos = np.arange(len(in_val))+.5  
+		in_label.reverse()
+		in_val.reverse()
+		yticks(pos, tuple(in_label))
+		barh(pos,in_val, align='center')
+		xlabel('Performance')
+		title(in_title)
+		grid(True)
+		savefig(outfile)
+		#########################################################
         finally:
             os.chdir(saved_cwd)
 

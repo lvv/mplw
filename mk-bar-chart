@@ -5,7 +5,7 @@
 
 #from pylab import *
 from matplotlib.pyplot import barh, title, grid , savefig, yticks 
-import matplotlib.pyplot
+#import matplotlib.pyplot
 import numpy as np
 #val =         [1, 2, 3, 4, 5]
 #pos = arange(len(val))+.5    # the bar centers on the y axis
@@ -27,10 +27,10 @@ while True:
 	in_lable.append(line_lable)	
 in_file.close()
 
-pos = np.arange(len(val))+.5  
+pos = np.arange(len(in_val))+.5  
 yticks(pos, tuple(in_lable))
 print 'yt args: ', (pos, tuple(in_lable))
-print 'val: ', val
+print 'val: ', in_val
 print 'pos: ', pos
 print 'lable: ', in_lable
 
