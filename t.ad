@@ -1,0 +1,46 @@
+= asciidoc test file for chart-filter
+
+ttt t t t  t
+
+["chart", "1.png"]
+---------------------------------------------------------------------
+The Title
+        xlabel this is xlabel
+
+11 line one
+22 line two
+--------------------------------------------------------------------
+
+blahblahblahblahblahblah      
+
+blah 
+blah 
+blah 
+blah 
+blah 
+
+["chart", "2.png"]
+---------------------------------------------------------------------
+The Title
+        xlabel this is xlabel
+
+11 line one
+5  last line
+5  last line
+22 line two
+22 line two
+22 line two
+22 line two
+22 line two
+22 line two
+22 line two
+22 line two
+22 line two
+22 line two
+22 line two
+22 line two
+--------------------------------------------------------------------
+
+eee e eeee eee
+
+// vim:ft=asciidoc

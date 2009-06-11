@@ -3,6 +3,10 @@
 import os, sys
 from optparse import *
 
+#from matplotlib.pyplot import barh, title, grid , savefig, yticks, xlabel
+from matplotlib.pyplot import *
+import numpy as np
+
 __AUTHOR__ = "Gouichi Iisaka <iisaka51@gmail.com>"
 __VERSION__ = '1.1.3'
 
@@ -100,7 +104,7 @@ LICENSE
         if os.system(cmd):
             raise EApp, 'failed command: %s' % cmd
 
-    def graphviz2png(self, infile, outfile):
+    def run_for_real(self, infile, outfile):
         '''Convert Graphviz notation in file infile to
            PNG file named outfile.'''
 
@@ -114,9 +118,56 @@ LICENSE
         saved_cwd = os.getcwd()
         os.chdir(outdir)
         try:
-            cmd = '%s -Tpng "%s" > "%s"' % (
-                        self.options.layout, infile, outfile)
-            self.systemcmd(cmd)
+		#cmd = '%s -Tpng "%s" > "%s"' % (self.options.layout, infile, outfile)
+		#self.systemcmd(cmd)
+		#########################################################
+		in_file = open(infile, "r")
+		in_val = []
+		in_label = []
+
+		# header
+		in_title = in_file.readline()
+		in_title.strip()
+		while True:
+			in_line = in_file.readline()
+			if not in_line: 
+				print "chart-filter error: premature EOF"
+				exit
+			in_line.strip()
+			if  len(in_line) == 1 :  break
+			sp_pos =  in_line.index(' ')
+			option = in_line[0:sp_pos]
+			if  option == 'xlabel' :  
+				xlabel(in_line[sp_pos+1:])
+			#else :
+			#	print 'chart-filter error:  unrecognised line:  ' +  in_line
+
+		# read data
+		for in_line in in_file:
+			in_line.strip()
+			if  len(in_line) == 1 :  break
+			in_line = in_line[:-1]
+			sp_pos =  in_line.index(' ')
+			in_val.append(int(in_line[0:sp_pos]))
+			in_label.append(in_line[sp_pos+1:].strip())	
+
+		in_file.close()
+
+		pos = np.arange(len(in_val))+.5  
+		in_label.reverse()
+		in_val.reverse()
+		hight = 0.5 + len(in_val)*0.3
+		fig = figure(figsize=(5,hight)) 
+		yticks(pos, tuple(in_label))
+		# figure(num=None, figsize=(8, 6), dpi=80, facecolor='w', edgecolor='k')
+		barh(pos,in_val, align='center')
+		title(in_title)
+		grid(True)
+		#w = 5
+		#h = 1
+		#set_figsize_inches( (w,h) )
+		fig.savefig(outfile)
+		#########################################################
         finally:
             os.chdir(saved_cwd)
 
@@ -140,7 +191,7 @@ LICENSE
         else:
             outfile = self.options.outfile
 
-        self.graphviz2png(infile, outfile)
+        self.run_for_real(infile, outfile)
 
         # To suppress asciidoc 'no output from filter' warnings.
         if self.options.infile == '-':
