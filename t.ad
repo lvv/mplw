@@ -2,7 +2,7 @@
 
 ttt t t t  t
 
-["chart", "1.png"]
+["chart", ".1.png"]
 ---------------------------------------------------------------------
 The Title
         xlabel this is xlabel
@@ -19,7 +19,7 @@ blah
 blah 
 blah 
 
-["chart", "2.png"]
+["chart", ".2.png"]
 ---------------------------------------------------------------------
 The Title
         xlabel this is xlabel
