@@ -120,7 +120,12 @@ LICENSE
         try:
 		#cmd = '%s -Tpng "%s" > "%s"' % (self.options.layout, infile, outfile)
 		#self.systemcmd(cmd)
+
+
+
 		#########################################################
+		# 'figure.edgecolor'
+
 		in_file = open(infile, "r")
 		in_val = []
 		in_label = []
@@ -142,6 +147,12 @@ LICENSE
 			#else :
 			#	print 'chart-filter error:  unrecognised line:  ' +  in_line
 
+			#             if self.left>=self.right:
+			#                reset()
+			#                raise ValueError('left cannot be >= right')
+
+
+
 		# read data
 		for in_line in in_file:
 			in_line.strip()
@@ -156,16 +167,25 @@ LICENSE
 		pos = np.arange(len(in_val))+.5  
 		in_label.reverse()
 		in_val.reverse()
-		hight = 0.5 + len(in_val)*0.3
-		fig = figure(figsize=(5,hight)) 
+		fig_hight = 4.8 + len(in_val)*0.3
+
+		rcParams['figure.figsize'] = (11, 11)
+		fig = figure()
+		#fig = figure(figsize=(5,fig_hight))  # default 8, 6
+
+		## l, b, w, h
+		rect = 0.3, 0.17, 0.6, 0.5  # default position: 0.125,  0.1,    0.9  ,  0.9
+		ax = fig.add_subplot(111, position=rect) 
+
 		yticks(pos, tuple(in_label))
-		# figure(num=None, figsize=(8, 6), dpi=80, facecolor='w', edgecolor='k')
+		rcParams['figure.edgecolor'] = 'g'
 		barh(pos,in_val, align='center')
-		title(in_title)
-		grid(True)
-		#w = 5
-		#h = 1
-		#set_figsize_inches( (w,h) )
+			#ax.barh(pos,in_val, align='center')
+		ax.grid(True)
+			#w = 5
+			#h = 1
+			#set_figsize_inches( (w,h) )
+		ax.set_title(in_title)
 		fig.savefig(outfile)
 		#########################################################
         finally:
