@@ -121,30 +121,26 @@ LICENSE
 		#cmd = '%s -Tpng "%s" > "%s"' % (self.options.layout, infile, outfile)
 		#self.systemcmd(cmd)
 
-
-
-		#########################################################
-		# 'figure.edgecolor'
-
+		#########################################################  lvv
 		in_file = open(infile, "r")
-		in_val = []
-		in_label = []
 
-		# eval lines
+		# read py code
 		eval_lines=''
-		while True:
-			line = in_file.readline()
-			if line.startswith('---DATA---'):  break
-			if  not line:   raise  ValueError( "chart-filter:  error in input file format, data not found")
+		for  line in in_file:
+			if   line.startswith('___'): 
+				embeded_data = True
+				break
 			eval_lines += line
 
 
 		# read data
-		m = []  # matrix
-		for  line  in in_file:
-			m.append( [float(s) for s in line.split()] )
+		if  embeded_data: 
+			m = []  # matrix
+			for  line  in in_file:
+				m.append( [float(s) for s in line.split()] )
 
-		c = np.array(m).transpose()
+			c = np.array(m).transpose()
+
 		in_file.close()
 
 		# eval
