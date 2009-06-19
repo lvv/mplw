@@ -18,9 +18,10 @@ install:
 	chmod   +x                   /etc/asciidoc/filters/chart/chart-filter.py
 
 debug_install:
-	rm                        -f /etc/asciidoc/filters/chart/chart-filter.{py,conf}
-	ln -sf  -v `pwd`/chart-filter.py   /etc/asciidoc/filters/chart/
-	ln -sf  -v `pwd`/chart-filter.conf /etc/asciidoc/filters/chart/
+	mkdir -p                   /etc/asciidoc/filters/mpl/
+	rm                      -f /etc/asciidoc/filters/mpl/{mplw.py,mpl.conf}
+	ln -sf  -v `pwd`/mplw.py   /etc/asciidoc/filters/mpl/
+	ln -sf  -v `pwd`/mpl.conf  /etc/asciidoc/filters/mpl/
 
 clean:
 	rm -f .*.png  *.html
