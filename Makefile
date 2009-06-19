@@ -1,3 +1,8 @@
+mplw:
+	rm -f .t.png
+	cat in.mplw | mplw.py  -o .t.png  - 
+	display .t.png
+
 t.html:  t.ad *.py *.conf t.ad in 
 	rm -f .*.png
 	asciidoc --unsafe --attribute icons --attribute iconsdir=/images/icons $< && firefox  $@
