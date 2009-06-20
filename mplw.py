@@ -5,7 +5,7 @@ from optparse import *
 
 #from matplotlib.pyplot import barh, title, grid , savefig, yticks, xlabel
 from matplotlib.pyplot import *
-import numpy as np
+import numpy
 import string
 
 __AUTHOR__ = "Gouichi Iisaka <iisaka51@gmail.com>"

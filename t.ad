@@ -4,24 +4,26 @@
 ["mpl", ".1.png"]
 ---------------------------------------------------------------------
 title('The Title')
+figure(figsize=(5,2))
 xlabel('The X-Label')
-#rcParams['figure.figsize'] = (2, 5)
 plot(c[0],c[1])
 ________________
 1	2
 2	4
 3	4.5
+3.5	4.2
+4	3.0
 --------------------------------------------------------------------
 
 
 ["mpl", ".2.png"]
 ---------------------------------------------------------------------
-title('HBAR')
+title('BenchMark')
 xlabel('Speed')
-pos=np.arange(len(c[0]))+.5
+figure(figsize=(5,2))
+pos=numpy.arange(len(c[0]))+.5
 c[0].reverse()
 c[1].reverse()
-rcParams['figure.figsize'] = (2, 5)
 yticks(pos, c[1])
 barh(pos, c[0], align='center')
 ________________
