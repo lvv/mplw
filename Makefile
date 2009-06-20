@@ -1,16 +1,13 @@
+t.html:  t.ad *.py *.conf 
+	rm -f .*.png
+	asciidoc --unsafe  $<   &&   firefox  $@
+
 mplw:
 	rm -f .t.png
 	cat t.mplw  |  mplw.py -o .t.png  - 
 	display .t.png
 
-t.html:  t.ad *.py *.conf 
-	rm -f .*.png
-	asciidoc --unsafe  $<   &&   firefox  $@
 
-test:
-	rm -f .t.png
-	cat in | chart-filter.py  -o .t.png  - 
-	display .t.png
 
 install:
 	mkdir -p                     /etc/asciidoc/filters/mpl/
@@ -25,4 +22,4 @@ debug_install:
 	ln -sf  -v `pwd`/mpl.conf  /etc/asciidoc/filters/mpl/
 
 clean:
-	rm -f .*.png  *.html
+	rm -f *png .*.png  *.html

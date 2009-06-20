@@ -1,4 +1,5 @@
-USE
+
+USAGE
         In asciidoc file:
 
                 == Example Use of MPL (matplotlib) filter
@@ -34,6 +35,11 @@ ABOUT
         (marked with ### ###, search for "lvv"),  did a lot of
         "s/graphviz/mpl/", found some sample code on the net for reading files in
         python and cobbled up the mplw.py (matplotlib wrapper).
+
+TODO
+        when mplw.py used not as asciidoc filter:
+                - if title not set take file name as title
+                - if multiple input files specirfied: make one overlayed chart
 
 
 Leonid Volnitsky

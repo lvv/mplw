@@ -6,6 +6,7 @@ from optparse import *
 #from matplotlib.pyplot import barh, title, grid , savefig, yticks, xlabel
 from matplotlib.pyplot import *
 import numpy as np
+import string
 
 __AUTHOR__ = "Gouichi Iisaka <iisaka51@gmail.com>"
 __VERSION__ = '1.1.3'
@@ -32,10 +33,6 @@ OPTIONS
         The file name of the output file. If not specified the output file is
         named like INFILE but with a .png file name extension.
 
-    -L LAYOUT, --layout=LAYOUT
-        Graphviz layout: dot, neato, twopi, circo, fdp
-        Default is 'dot'.
-
     -v, --verbose
         Verbosely print processing information to stderr.
 
@@ -46,7 +43,7 @@ OPTIONS
         Print program version number.
 
 SEE ALSO
-    graphviz(1)
+    matplotlib.com
 
 AUTHOR
     Written by Gouichi Iisaka, <iisaka51@gmail.com>
@@ -136,8 +133,18 @@ LICENSE
             if  embeded_data: 
                 m = []  # matrix
                 for  line  in infile:
-                    m.append( [float(s) for s in line.split()] )
-                c = np.array(m).transpose()
+                    #m.append( [float(s) for s in line.split()] )
+
+                    m.append(line.split())
+                    # convert to float if it looks like number
+                    for i in range(len(m[-1])):
+                        if   len(m[-1][i].translate(string.maketrans('',''),' +-0123456789eE.')) == 0:
+                            m[-1][i] = float(m[-1][i])
+
+                #c = np.array(m).transpose()
+                #c = zip(*m)
+                c = [[row[i] for row in m] for i in range(len(m[0]))]
+
 
             infile.close()
 
@@ -164,8 +171,7 @@ LICENSE
             infile = sys.stdin
             #open(infile, 'w').writelines(lines)
 
-            # To suppress asciidoc 'no output from filter' warnings.
-            sys.stdout.write(' ')
+            sys.stdout.write(' ')       # To suppress asciidoc 'no output from filter' warnings.
 
 
         #if not os.path.isfile(self.options.infile):

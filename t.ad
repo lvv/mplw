@@ -1,10 +1,11 @@
 = asciidoc test file for chart-filter
 
 
-["mpl", ".mpl.png"]
+["mpl", ".1.png"]
 ---------------------------------------------------------------------
 title('The Title')
 xlabel('The X-Label')
+#rcParams['figure.figsize'] = (2, 5)
 plot(c[0],c[1])
 ________________
 1	2
@@ -12,45 +13,19 @@ ________________
 3	4.5
 --------------------------------------------------------------------
 
-["chart", ".1.png"]
+
+["mpl", ".2.png"]
 ---------------------------------------------------------------------
-TITLE
-        xlabel this is xlabel
-
-11 line one
-22 line two
+title('HBAR')
+xlabel('Speed')
+pos=np.arange(len(c[0]))+.5
+c[0].reverse()
+c[1].reverse()
+rcParams['figure.figsize'] = (2, 5)
+yticks(pos, c[1])
+barh(pos, c[0], align='center')
+________________
+1	'red'
+2	'blue'
+3	'green'
 --------------------------------------------------------------------
-
-
-blah blah blah blahblahblah      
-blah blah blah blahblahblah      
-
-
-
-["chart", ".2.png"]
----------------------------------------------------------------------
-Short bar-chart
-        xlabel this is xlabel
-
-11 line one
-5  last line
-5  last line
-22 line two
-22 line two
-22 line two
-22 line two
-22 line two
-22 line two
-22 line two
-22 line two
-22 line two
-22 line two
-22 line two
-22 line two
---------------------------------------------------------------------
-
-
-eee e eeee eee
-
-
-// vim:ft=asciidoc

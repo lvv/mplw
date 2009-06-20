@@ -167,7 +167,7 @@ LICENSE
 		pos = np.arange(len(in_val))+.5  
 		in_label.reverse()
 		in_val.reverse()
-		fig_hight = 4.8 + len(in_val)*0.3
+		fig_hight = 0.8 + len(in_val)*0.3
 
 		rcParams['figure.figsize'] = (11, 11)
 		fig = figure()
