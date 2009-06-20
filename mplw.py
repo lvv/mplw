@@ -147,14 +147,13 @@ LICENSE
                 c = [[row[i] for row in m] for i in range(len(m[0]))]   # transpose
 
             infile.close()
-            #bm = 'def benchmark(label, val):\n pos=numpy.arange(len(val))+.5\n label.reverse()\n val.reverse()\n yticks(pos, label)\n barh(pos, val, align="center")\n '
             bm = '''def benchmark(label, val):
- pos=numpy.arange(len(val))+.5
- label.reverse()
- val.reverse()
- yticks(pos, label)
- barh(pos, val, align="center")
-'''
+                         pos=numpy.arange(len(val))+.5
+                         label.reverse()
+                         val.reverse()
+                         yticks(pos, label)
+                         barh(pos, val, align="center")
+            \n'''
 
             # eval
             exec bm + eval_lines
