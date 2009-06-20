@@ -101,6 +101,9 @@ LICENSE
         if os.system(cmd):
             raise EApp, 'failed command: %s' % cmd
 
+
+        
+
     def run_for_real(self, infile, outfile):
         '''Convert Graphviz notation in file infile to PNG file named outfile.'''
 
@@ -128,10 +131,10 @@ LICENSE
                     break
                 eval_lines += line
 
-
             # read data
             if  embeded_data: 
                 m = []  # matrix
+
                 for  line  in infile:
                     #m.append( [float(s) for s in line.split()] )
 
@@ -141,19 +144,25 @@ LICENSE
                         if   len(m[-1][i].translate(string.maketrans('',''),' +-0123456789eE.')) == 0:
                             m[-1][i] = float(m[-1][i])
 
-                #c = np.array(m).transpose()
-                #c = zip(*m)
-                c = [[row[i] for row in m] for i in range(len(m[0]))]
-
+                c = [[row[i] for row in m] for i in range(len(m[0]))]   # transpose
 
             infile.close()
+            #bm = 'def benchmark(label, val):\n pos=numpy.arange(len(val))+.5\n label.reverse()\n val.reverse()\n yticks(pos, label)\n barh(pos, val, align="center")\n '
+            bm = '''def benchmark(label, val):
+ pos=numpy.arange(len(val))+.5
+ label.reverse()
+ val.reverse()
+ yticks(pos, label)
+ barh(pos, val, align="center")
+'''
 
             # eval
-            exec(eval_lines)
+            exec bm + eval_lines
 
             # save
             savefig(outfile)
             #########################################################
+
         finally:
             os.chdir(saved_cwd)
 

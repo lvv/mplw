@@ -21,13 +21,29 @@ ________________
 title('BenchMark')
 xlabel('Speed')
 figure(figsize=(5,2))
-pos=numpy.arange(len(c[0]))+.5
-c[0].reverse()
-c[1].reverse()
-yticks(pos, c[1])
-barh(pos, c[0], align='center')
+benchmark(c[1], c[0])
 ________________
 1	'red'
 2	'blue'
+
+--------------------------------------------------------------------
+
+
+["mpl", ".3.png"]
+---------------------------------------------------------------------
+title('BenchMark')
+xlabel('Speed')
+figure(figsize=(5,2))
+benchmark(c[1], c[0])
+________________
+1	'red'
+2	'blue'
+3	'green'
+3	'green'
+3	'green'
+3	'green'
+3	'green'
+3	'green'
+3	'green'
 3	'green'
 --------------------------------------------------------------------
