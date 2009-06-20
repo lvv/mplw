@@ -5,6 +5,7 @@ from optparse import *
 
 #from matplotlib.pyplot import barh, title, grid , savefig, yticks, xlabel
 from matplotlib.pyplot import *
+import csv
 import numpy
 import string
 
@@ -135,10 +136,9 @@ LICENSE
             if  embeded_data: 
                 m = []  # matrix
 
-                for  line  in infile:
-                    #m.append( [float(s) for s in line.split()] )
+                for row in csv.reader(infile, delimiter=' ', quotechar="'", skipinitialspace=True):
+                    m.append(row)
 
-                    m.append(line.split())
                     # convert to float if it looks like number
                     for i in range(len(m[-1])):
                         if   len(m[-1][i].translate(string.maketrans('',''),' +-0123456789eE.')) == 0:

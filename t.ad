@@ -24,8 +24,8 @@ xlabel('Speed')
 figure(figsize=(5,2))
 benchmark(c[0], c[1])
 ________________
-'red'	1
-'blue'	2
+'red'   1
+'blue'  2
 ----------------------------
 
 
@@ -36,12 +36,12 @@ title('BenchMark')
 xlabel('Speed')
 figure(figsize=(5,2))
 benchmark(c[0], c[1])
+#'long  blah blah blah blah'  3	
 ________________
 'red'	1	
 'blue'  2	
 'green' 3	
-'green' 3	
-'green' 3	
+'LONG LONG LONG LONG' 5	
 'green' 3	
 'green' 3	
 'green' 3	
