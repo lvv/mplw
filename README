@@ -1,0 +1,40 @@
+USE
+	In asciidoc file:
+
+		== Example Use of MPL (matplotlib) filter
+
+		["mpl", "FIG1.PNG"]
+		-------------------------------------------
+		title('Two Random Charts')
+		xlabel('Some random  xlabel text')
+		plot(c[0],c[1], c[0], c[2])                                                                                                                  
+		___________________________________
+		1       2       1
+		2       4       1.2
+		3       4.5     1.6
+		4       5       3.3
+		5       5.2     4.4
+		------------------------------------------------------
+		
+	In table above, 1st col is X-values, 2nd and 3d are Y1 and Y2-values.
+	Matplotlib function plot() expect X-points-vector (arg1) and
+	Y-points-vector(arg2).  The c[][] is matrix where c[0] is vector
+	holding 1st col from above table, c[1] is second column and so on.
+	Asciidoc will produce from this html file and beautiful
+	(AA + subpixel resolution) FIG1.PNG
+
+INSTALL
+	- install matplotlib
+	- cd mplw; make install  # this will create 2 files: /etc/asciidoc/filters/mpl/{mpl.conf,mplw.py}
+
+
+ABOUT
+	This is filter for asciidoc.  It based on GNU licensed graphviz2png.py by Gouichi
+	Iisaka .  I actully don't know python.  I've just replaced small section in it
+	(marked with ### ###, search for "lvv"),  did a lot of
+	"s/graphviz/mpl/", found some sample code on the net for reading files in
+	python and cobbled up the mplw.py (matplotlib wrapper).
+
+
+Leonid Volnitsky
+leonid@volnitsky.com

@@ -138,7 +138,6 @@ LICENSE
 			m = []  # matrix
 			for  line  in in_file:
 				m.append( [float(s) for s in line.split()] )
-
 			c = np.array(m).transpose()
 
 		in_file.close()
