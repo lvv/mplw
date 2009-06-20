@@ -71,25 +71,25 @@ LICENSE
 
         self.option_list = [
             Option("-o", "--outfile", action="store",
-		    dest="outfile",
-		    help="Output file"),
+            dest="outfile",
+            help="Output file"),
             Option("-L", "--layout", action="store",
                     dest="layout", default="dot", type="choice",
                     choices=['dot','neato','twopi','circo','fdp'],
-		    help="Layout type. LAYOUT=<dot|neato|twopi|circo|fdp>"),
+            help="Layout type. LAYOUT=<dot|neato|twopi|circo|fdp>"),
             Option("--debug", action="store_true",
-		    dest="do_debug",
-		    help=SUPPRESS_HELP),
+            dest="do_debug",
+            help=SUPPRESS_HELP),
             Option("-v", "--verbose", action="store_true",
-		    dest="do_verbose", default=False,
-		    help="verbose output"),
-	    ]
+            dest="do_verbose", default=False,
+            help="verbose output"),
+        ]
 
         self.parser = OptionParser( usage=self.usage, version=self.version,
                                     option_list=self.option_list)
         (self.options, self.args) = self.parser.parse_args()
 
-	if len(self.args) != 1:
+        if len(self.args) != 1:
             self.parser.print_help()
             sys.exit(1)
 
@@ -105,8 +105,7 @@ LICENSE
             raise EApp, 'failed command: %s' % cmd
 
     def run_for_real(self, infile, outfile):
-        '''Convert Graphviz notation in file infile to
-           PNG file named outfile.'''
+        '''Convert Graphviz notation in file infile to PNG file named outfile.'''
 
         outfile = os.path.abspath(outfile)
         outdir = os.path.dirname(outfile)
@@ -118,65 +117,69 @@ LICENSE
         saved_cwd = os.getcwd()
         os.chdir(outdir)
         try:
-		#cmd = '%s -Tpng "%s" > "%s"' % (self.options.layout, infile, outfile)
-		#self.systemcmd(cmd)
+            #cmd = '%s -Tpng "%s" > "%s"' % (self.options.layout, infile, outfile)
+            #self.systemcmd(cmd)
 
-		#########################################################  lvv
-		in_file = open(infile, "r")
+            #########################################################  lvv
+            #in_file = open(infile, "r")
 
-		# read py code
-		eval_lines=''
-		for  line in in_file:
-			if   line.startswith('___'): 
-				embeded_data = True
-				break
-			eval_lines += line
+            # read py code
+            eval_lines=''
+            for  line in infile:
+                if   line.startswith('___'): 
+                    embeded_data = True
+                    break
+                eval_lines += line
 
 
-		# read data
-		if  embeded_data: 
-			m = []  # matrix
-			for  line  in in_file:
-				m.append( [float(s) for s in line.split()] )
-			c = np.array(m).transpose()
+            # read data
+            if  embeded_data: 
+                m = []  # matrix
+                for  line  in infile:
+                    m.append( [float(s) for s in line.split()] )
+                c = np.array(m).transpose()
 
-		in_file.close()
+            infile.close()
 
-		# eval
-		exec(eval_lines)
+            # eval
+            exec(eval_lines)
 
-		# save
-		savefig(outfile)
-		#########################################################
+            # save
+            savefig(outfile)
+            #########################################################
         finally:
             os.chdir(saved_cwd)
 
-        if not self.options.do_debug:
-            os.unlink(infile)
+        #if not self.options.do_debug:
+        #    os.unlink(infile)
 
     def run(self):
         if self.options.infile == '-':
             if self.options.outfile is None:
                 sys.stderr.write('OUTFILE must be specified')
                 sys.exit(1)
-            infile = os.path.splitext(self.options.outfile)[0] + '.txt'
-            lines = sys.stdin.readlines()
-            open(infile, 'w').writelines(lines)
+            #infile = os.path.splitext(self.options.outfile)[0] + '.txt'
+            #lines = sys.stdin.readlines()
 
-        if not os.path.isfile(infile):
-            raise EApp, 'input file does not exist: %s' % infile
+            infile = sys.stdin
+            #open(infile, 'w').writelines(lines)
+
+            # To suppress asciidoc 'no output from filter' warnings.
+            sys.stdout.write(' ')
+
+
+        #if not os.path.isfile(self.options.infile):
+        #    raise EApp, 'input file does not exist: %s' % self.options.infile
 
         if self.options.outfile is None:
-            outfile = os.path.splitext(infile)[0] + '.png'
+            outfile = os.path.splitext(self.options.infile)[0] + '.png'
         else:
             outfile = self.options.outfile
 
         self.run_for_real(infile, outfile)
 
-        # To suppress asciidoc 'no output from filter' warnings.
-        if self.options.infile == '-':
-            sys.stdout.write(' ')
-
 if __name__ == "__main__":
     app = Application()
     app.run()
+
+# vim:ts=4 et sw=4:
