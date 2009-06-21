@@ -8,11 +8,11 @@ figure(figsize=(5,2))
 xlabel('The X-Label')
 plot(c[0],c[1])
 ________________
-1	2
-2	4
-3	4.5
-3.5	4.2
-4	3.0
+1,	2
+2,	4
+3,	4.5
+3.5,	4.2
+4,	3.0
 --------------------------
 
 
@@ -24,8 +24,8 @@ xlabel('Speed')
 figure(figsize=(5,2))
 benchmark(c[0], c[1])
 ________________
-'red'   1
-'blue'  2
+'red',   1
+'blue',  2
 ----------------------------
 
 
@@ -38,13 +38,13 @@ figure(figsize=(5,2))
 benchmark(c[0], c[1])
 #'long  blah blah blah blah'  3	
 ________________
-'red'	1	
-'blue'  2	
-'green' 3	
-'LONG LONG LONG LONG' 5	
-'green' 3	
-'green' 3	
-'green' 3	
-'green' 3	
-'green' 3	
+'red',	1	
+'blue',  2	
+'green', 3	
+'LONG LONG LONG LONG', 5	
+'green', 3	
+'green', 3	
+'green', 3	
+'green', 3	
+'green', 3	
 ------------------------------

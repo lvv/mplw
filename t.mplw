@@ -1,7 +1,9 @@
-title('The Title')
-xlabel('The X-Label')
-plot(c[0],c[1])
+title('F1 vs F2')
+plot(c[0],c[1],label='F1')
+plot(c[0],c[2],label='F2')
+legend(loc=0)
 ________________
-1	2
-2	4
-3	4.5
+1,	2,	  2  
+2,	4,	3
+3,	4.5,	5
+ 4,	4.1,	4

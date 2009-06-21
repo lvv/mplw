@@ -136,7 +136,7 @@ LICENSE
             if  embeded_data: 
                 m = []  # matrix
 
-                for row in csv.reader(infile, delimiter=' ', quotechar="'", skipinitialspace=True):
+                for row in csv.reader(infile, delimiter=',', quotechar="'", skipinitialspace=True):
                     m.append(row)
 
                     # convert to float if it looks like number
