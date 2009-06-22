@@ -118,11 +118,7 @@ LICENSE
         saved_cwd = os.getcwd()
         os.chdir(outdir)
         try:
-            #cmd = '%s -Tpng "%s" > "%s"' % (self.options.layout, infile, outfile)
-            #self.systemcmd(cmd)
-
             #########################################################  lvv
-            #in_file = open(infile, "r")
 
             # read py code
             eval_lines=''
