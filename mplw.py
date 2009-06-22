@@ -93,6 +93,7 @@ LICENSE
 
         self.options.infile = self.args[0]
 
+
     def systemcmd(self, cmd):
         if self.options.do_verbose:
             msg = 'Execute: %s' % cmd
@@ -101,9 +102,6 @@ LICENSE
             cmd += ' 2>/dev/null'
         if os.system(cmd):
             raise EApp, 'failed command: %s' % cmd
-
-
-        
 
     def run_for_real(self, infile, outfile):
         '''Convert Graphviz notation in file infile to PNG file named outfile.'''
@@ -117,6 +115,8 @@ LICENSE
         basefile = os.path.splitext(outfile)[0]
         saved_cwd = os.getcwd()
         os.chdir(outdir)
+
+
         try:
             #########################################################  lvv
 
@@ -135,7 +135,7 @@ LICENSE
                 for row in csv.reader(infile, delimiter=',', quotechar="'", skipinitialspace=True):
                     m.append(row)
 
-                    # convert to float if it looks like number
+                    # convert to float if it look like number
                     for i in range(len(m[-1])):
                         if   len(m[-1][i].translate(string.maketrans('',''),' +-0123456789eE.')) == 0:
                             m[-1][i] = float(m[-1][i])
@@ -143,26 +143,15 @@ LICENSE
                 c = [[row[i] for row in m] for i in range(len(m[0]))]   # transpose
 
             infile.close()
-            bm = '''def benchmark(label, val):
-                         pos=numpy.arange(len(val))+.5
-                         label.reverse()
-                         val.reverse()
-                         yticks(pos, label)
-                         barh(pos, val, align="center")
-            \n'''
 
             # eval
-            exec bm + eval_lines
-
-            # save
+            exec eval_lines
+            auto_adjust(gcf())
             savefig(outfile)
             #########################################################
 
         finally:
             os.chdir(saved_cwd)
-
-        #if not self.options.do_debug:
-        #    os.unlink(infile)
 
     def run(self):
         if self.options.infile == '-':
@@ -171,19 +160,12 @@ LICENSE
             if self.options.outfile is None:
                 sys.stderr.write('OUTFILE must be specified')
                 sys.exit(1)
-            #infile = os.path.splitext(self.options.outfile)[0] + '.txt'
-            #lines = sys.stdin.readlines()
-
-            #open(infile, 'w').writelines(lines)
-
             infile = sys.stdin
 
         else:
+            if not os.path.isfile(self.options.infile):
+                raise EApp, 'input file does not exist: %s' % self.options.infile
             infile = open(self.options.infile)
-
-
-        #if not os.path.isfile(self.options.infile):
-        #    raise EApp, 'input file does not exist: %s' % self.options.infile
 
         if self.options.outfile is None:
             outfile = os.path.splitext(self.options.infile)[0] + '.png'
@@ -191,6 +173,68 @@ LICENSE
             outfile = self.options.outfile
 
         self.run_for_real(infile, outfile)
+
+
+def benchmark(label, val, label_part=-1):
+    bar_width = 0.25
+    ytick_pos=numpy.arange(len(val))+.5
+    label.reverse()
+    val.reverse()
+    # 
+    fontsize = rcParams['font.size']
+    fixed_part = fontsize/72 * 3  
+
+    h = (len(val)+1.4)*bar_width + fixed_part
+    gcf().set_figheight(h)
+
+    #step = ytick_pos[1] - ytick_pos[0]
+    #gca().set_ylim(ytick_pos[0]-1, ytick_pos[-1]+1)
+
+    yticks(ytick_pos, label, fontsize='large')
+    barh(ytick_pos, val, align="center", height=0.6)
+    gca().set_ybound(lower=ytick_pos[0]-0.7, upper=ytick_pos[-1]+0.7)
+    gca().set_xbound(upper=max(val)*1.1)
+    rcParams['axes.labelsize'] = 'large'
+
+def auto_adjust(fig):
+    axes =  getp(fig,property='axes')
+
+    h = getp(fig, property='figheight')
+    w = getp(fig, property='figwidth')
+    fontsize = rcParams['font.size']
+    dpi = rcParams['savefig.dpi']
+
+    # top,  title
+    if  len(getp(axes[0],property='title')) != 0:  # if there is a title
+        title_fontsize = matplotlib.font_manager.font_scalings[rcParams['axes.titlesize']] * fontsize
+        top_adjust = 1.0 - title_fontsize/72 * 1.2  /h 
+        fig.subplots_adjust(top=top_adjust)
+
+    # bottom,  xlabel
+    xtick_fontsize = matplotlib.font_manager.font_scalings[rcParams['xtick.labelsize']] * fontsize
+    bottom_adjust = xtick_fontsize/72 /h * 1.4
+    if  len(getp(axes[0],property='xlabel')) != 0:  #  xlabel
+        xlabel_fontsize = matplotlib.font_manager.font_scalings[rcParams['axes.labelsize']] * fontsize
+        bottom_adjust += xlabel_fontsize/72 /h
+
+    fig.subplots_adjust(bottom=bottom_adjust)
+
+    # left labels
+    current = getp(getp(gca(),property='position'),property='points')
+
+    ll = getp(gca(),property='yticklabels')
+    max_ytick_length = max([len(getp(l,property='text')) for l in ll])
+    max_ytick_length = max(6, max_ytick_length)
+    ytick_fontsize = matplotlib.font_manager.font_scalings[rcParams['ytick.labelsize']] * fontsize
+    left_adjust = max_ytick_length * 0.8 * ytick_fontsize/72 /w
+    if  len(getp(axes[0],property='ylabel')) != 0:   # ylable
+        ylabel_fontsize = matplotlib.font_manager.font_scalings[rcParams['axes.labelsize']] * fontsize
+        left_adjust += ylabel_fontsize/72 /w
+    fig.subplots_adjust(left=left_adjust)
+
+    # left labels
+    fig.subplots_adjust(right=1-fontsize/72/w)
+
 
 if __name__ == "__main__":
     app = Application()

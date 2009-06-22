@@ -10,10 +10,10 @@ mplw:
 
 
 install:
-	mkdir -p                     /etc/asciidoc/filters/mpl/
-	rm                        -f /etc/asciidoc/filters/chart/chart-filter.{py,conf}
-	cp -v chart-filter.{py,conf} /etc/asciidoc/filters/chart/
-	chmod   +x                   /etc/asciidoc/filters/chart/chart-filter.py
+	mkdir -p		/etc/asciidoc/filters/mpl/
+	cp -v   mplw.py   	/etc/asciidoc/filters/mpl/
+	cp -v   mpl.conf	/etc/asciidoc/filters/mpl/
+	chmod  +x              	/etc/asciidoc/filters/mpl/mplw.py
 
 debug_install:
 	mkdir -p                   /etc/asciidoc/filters/mpl/

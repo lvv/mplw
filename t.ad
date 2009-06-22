@@ -3,8 +3,8 @@
 
 ["mpl", ".1.png"]
 -------------------------
+figure(figsize=(4,3))
 title('The Title')
-figure(figsize=(5,2))
 xlabel('The X-Label')
 plot(c[0],c[1])
 ________________
@@ -19,24 +19,23 @@ ________________
 
 ["mpl", ".2.png"]
 ---------------------------
+figure(figsize=(8,1.5))
 title('BenchMark')
 xlabel('Speed')
-figure(figsize=(5,2))
 benchmark(c[0], c[1])
 ________________
 'red',   1
-'blue',  2
+'123456789 WWWWWWWWWWWWWWWWWWW',  2
 ----------------------------
 
 
 
 ["mpl", ".3.png"]
 -----------------------------
+figure(figsize=(7,2))
 title('BenchMark')
 xlabel('Speed')
-figure(figsize=(5,2))
 benchmark(c[0], c[1])
-#'long  blah blah blah blah'  3	
 ________________
 'red',	1	
 'blue',  2	
@@ -48,3 +47,5 @@ ________________
 'green', 3	
 'green', 3	
 ------------------------------
+
+ vim:ft=python
