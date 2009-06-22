@@ -170,16 +170,20 @@ LICENSE
 
     def run(self):
         if self.options.infile == '-':
+            sys.stdout.write(' ')       # To suppress asciidoc 'no output from filter' warnings.
+
             if self.options.outfile is None:
                 sys.stderr.write('OUTFILE must be specified')
                 sys.exit(1)
             #infile = os.path.splitext(self.options.outfile)[0] + '.txt'
             #lines = sys.stdin.readlines()
 
-            infile = sys.stdin
             #open(infile, 'w').writelines(lines)
 
-            sys.stdout.write(' ')       # To suppress asciidoc 'no output from filter' warnings.
+            infile = sys.stdin
+
+        else:
+            infile = open(self.options.infile)
 
 
         #if not os.path.isfile(self.options.infile):
