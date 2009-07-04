@@ -19,7 +19,7 @@ ________________
 
 ["mpl", ".2.png"]
 ---------------------------
-figure(figsize=(8,1.5))
+#figure(figsize=(8,1.5))
 title('BenchMark')
 xlabel('Speed')
 benchmark(c[0], c[1])
@@ -32,7 +32,7 @@ ________________
 
 ["mpl", ".3.png"]
 -----------------------------
-figure(figsize=(7,2))
+#figure(figsize=(7,2))
 title('BenchMark')
 xlabel('Speed')
 benchmark(c[0], c[1])

@@ -11,6 +11,7 @@ mplw:
 
 install:
 	mkdir -p		/etc/asciidoc/filters/mpl/
+	rm                   -f /etc/asciidoc/filters/mpl/{mplw.py,mpl.conf}
 	cp -v   mplw.py   	/etc/asciidoc/filters/mpl/
 	cp -v   mpl.conf	/etc/asciidoc/filters/mpl/
 	chmod  +x              	/etc/asciidoc/filters/mpl/mplw.py
@@ -23,3 +24,4 @@ debug_install:
 
 clean:
 	rm -f *png .*.png  *.html
+

@@ -133,7 +133,7 @@ LICENSE
                 m = []  # matrix
 
                 for row in csv.reader(infile, delimiter=',', quotechar="'", skipinitialspace=True):
-                    m.append(row)
+                    if row:   m.append(row)
 
                     # convert to float if it look like number
                     for i in range(len(m[-1])):
@@ -146,8 +146,14 @@ LICENSE
 
             # eval
             exec eval_lines
-            auto_adjust(gcf())
-            savefig(outfile)
+
+            lvv_style = True
+            if lvv_style:
+                auto_adjust(gcf())
+                grid(True)
+                savefig(outfile, facecolor='0.9')
+            else:
+                savefig(outfile)
             #########################################################
 
         finally:
@@ -199,20 +205,24 @@ def benchmark(label, val, label_part=-1):
 def auto_adjust(fig):
     axes =  getp(fig,property='axes')
 
-    h = getp(fig, property='figheight')
-    w = getp(fig, property='figwidth')
-    fontsize = rcParams['font.size']
-    dpi = rcParams['savefig.dpi']
+    h = getp(fig, property='figheight') # inch
+    w = getp(fig, property='figwidth')  # inch
+    fontsize = rcParams['font.size']    # point
+    dpi = rcParams['savefig.dpi']       # point / inch
 
     # top,  title
+    top_space = 1.7   # em
+
     if  len(getp(axes[0],property='title')) != 0:  # if there is a title
         title_fontsize = matplotlib.font_manager.font_scalings[rcParams['axes.titlesize']] * fontsize
-        top_adjust = 1.0 - title_fontsize/72 * 1.2  /h 
+        top_adjust = 1.0 - title_fontsize/72 * top_space  /h 
         fig.subplots_adjust(top=top_adjust)
 
     # bottom,  xlabel
+    bottom_space = 1.3  # em
+
     xtick_fontsize = matplotlib.font_manager.font_scalings[rcParams['xtick.labelsize']] * fontsize
-    bottom_adjust = xtick_fontsize/72 /h * 1.4
+    bottom_adjust = xtick_fontsize/72 /h * bottom_space
     if  len(getp(axes[0],property='xlabel')) != 0:  #  xlabel
         xlabel_fontsize = matplotlib.font_manager.font_scalings[rcParams['axes.labelsize']] * fontsize
         bottom_adjust += xlabel_fontsize/72 /h
@@ -220,20 +230,22 @@ def auto_adjust(fig):
     fig.subplots_adjust(bottom=bottom_adjust)
 
     # left labels
-    current = getp(getp(gca(),property='position'),property='points')
+    char_width = 0.8    # em
 
+    current = getp(getp(gca(),property='position'),property='points')
     ll = getp(gca(),property='yticklabels')
     max_ytick_length = max([len(getp(l,property='text')) for l in ll])
     max_ytick_length = max(6, max_ytick_length)
     ytick_fontsize = matplotlib.font_manager.font_scalings[rcParams['ytick.labelsize']] * fontsize
-    left_adjust = max_ytick_length * 0.8 * ytick_fontsize/72 /w
+    left_adjust = max_ytick_length * char_width * ytick_fontsize/72 /w
     if  len(getp(axes[0],property='ylabel')) != 0:   # ylable
         ylabel_fontsize = matplotlib.font_manager.font_scalings[rcParams['axes.labelsize']] * fontsize
         left_adjust += ylabel_fontsize/72 /w
     fig.subplots_adjust(left=left_adjust)
 
-    # left labels
-    fig.subplots_adjust(right=1-fontsize/72/w)
+    # righ margin
+    right_margin = 1.5  # em
+    fig.subplots_adjust(right=1-fontsize/72/w * right_margin)
 
 
 if __name__ == "__main__":

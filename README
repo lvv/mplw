@@ -41,6 +41,9 @@ TODO
                 - if title not set take file name as title
                 - if multiple input files specirfied: make one overlayed chart
 
+REF
+        DIagrams Through Ascii Art -- http://ditaa.sourceforge.net/
+        Graphviz filter for AsciiDoc -- http://www.methods.co.nz/asciidoc/asciidoc-graphviz-sample.html
 
 Leonid Volnitsky
 leonid@volnitsky.com
