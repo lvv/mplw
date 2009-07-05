@@ -133,7 +133,8 @@ LICENSE
                 m = []  # matrix
 
                 for row in csv.reader(infile, delimiter=',', quotechar="'", skipinitialspace=True):
-                    if row:   m.append(row)
+                    if row:    # if not blank line
+                        m.append(row)  
 
                     # convert to float if it look like number
                     for i in range(len(m[-1])):
@@ -150,8 +151,15 @@ LICENSE
             lvv_style = True
             if lvv_style:
                 auto_adjust(gcf())
+
                 grid(True)
-                savefig(outfile, facecolor='0.9')
+                ### TODO GRIDS
+                #grid.color       :   black   # grid color
+                #grid.linestyle   :   :       # dotted
+                #grid.linewidth   :   0.5     # in points
+
+                savefig(outfile, facecolor='0.95', edgecolor='0.7')
+                # TODO axes.linewidth      : 1.0     # edge linewidth
             else:
                 savefig(outfile)
             #########################################################
@@ -182,7 +190,7 @@ LICENSE
 
 
 def benchmark(label, val, label_part=-1):
-    bar_width = 0.25
+    bar_width = 0.35
     ytick_pos=numpy.arange(len(val))+.5
     label.reverse()
     val.reverse()
