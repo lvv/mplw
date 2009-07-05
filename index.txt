@@ -15,24 +15,40 @@ Will produce following picture:
 
 include::example.asciidoc[]
         
-In source table above, 1st col is X-values, 2nd and 3d are Y1 and Y2-values.
+Text between "----" lines send to stdin of mplw.py. This text further devided with +++"___"+++ line. 
+Top part is inline python code calling matplotlib functions and bottom part is plot data. 
+
+This inline code evaluated in environment with matplotlib imported:
+-------------------------------
+from matplotlib.pyplot import *                                                                                                          
+-------------------------------
+After inline code evaluated mplw.py executes code which writes PNG file.
+
+If there is no bottom part (plot data),  inline code should provide code to read plot data itself.
+
+Also if lvv_style is enabled (default), MPLW adjust figure borders sizes  (mpl does
+not do it automatically), enables grid and sets figure backrgound to light grey. 
+
+In source table above, 1st col is X-values, 2nd and 3rd are Y1 and Y2-values.
 Matplotlib function plot() expect X-points-vector (arg1) and
 Y-points-vector(arg2).  The c[][] is matrix where c[0] is vector
 holding 1st col from above table, c[1] is second column and so on.
 Asciidoc will produce from this html file and `example.png`
 
 
+
+
 Install
 -------
 
 -------------
-emerge  matplotlib  python  asciidoc
+emerge -u matplotlib asciidoc git
 git clone git://github.com/lvv/mplw.git
 cd mplw.git
 make install  # this will create 2 files: /etc/asciidoc/filters/mpl/{mpl.conf,mplw.py}
 --------------
 
-Replace `emerge` above with your distro package manager.
+Replace `emerge` with your distro package manager.
 
 
 About
@@ -50,9 +66,8 @@ Todo
   - if multiple input files specirfied: make one overlayed chart
 * http://ditaa.sourceforge.net[DIagrams Through Ascii Art]
 
-[bibliography]
 .References
-[[[1]]]   http://www.methods.co.nz/asciidoc/asciidoc-graphviz-sample.html[Graphviz filter for AsciiDoc]
-[[[2]]]   http://matplotlib.sourceforge.net/[MatPlotLib]
+- [[[1]]]   http://www.methods.co.nz/asciidoc/asciidoc-graphviz-sample.html[Graphviz filter for AsciiDoc]
+- [[[2]]]   http://matplotlib.sourceforge.net[MatPlotLib]
 
-vim:ts=8 ft=asciidoc:
+// vim:ts=8 ft=asciidoc:

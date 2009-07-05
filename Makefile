@@ -1,3 +1,7 @@
+
+HOMEDIR ?= /home/lvv/p/volnitsky.com/
+include $(HOMEDIR)/include.mk
+
 t.html:  t.ad *.py *.conf 
 	rm -f .*.png
 	asciidoc --unsafe  $<   &&   firefox  $@
@@ -21,7 +25,4 @@ debug_install:
 	rm                      -f /etc/asciidoc/filters/mpl/{mplw.py,mpl.conf}
 	ln -sf  -v `pwd`/mplw.py   /etc/asciidoc/filters/mpl/
 	ln -sf  -v `pwd`/mpl.conf  /etc/asciidoc/filters/mpl/
-
-clean:
-	rm -f *png .*.png  *.html
 

@@ -1,6 +1,7 @@
 
 ["mpl", "example.png"]
 -------------------------------------------
+figure(figsize=(5,3))		#  hight x width, inches
 title('Two Charts')
 xlabel('Some text')
 plot(c[0],c[1], c[0], c[2])                                                                                                                  

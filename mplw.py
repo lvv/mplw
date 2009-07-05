@@ -158,7 +158,7 @@ LICENSE
                 #grid.linestyle   :   :       # dotted
                 #grid.linewidth   :   0.5     # in points
 
-                savefig(outfile, facecolor='0.95', edgecolor='0.7')
+                savefig(outfile, facecolor='0.95', edgecolor='0.8')
                 # TODO axes.linewidth      : 1.0     # edge linewidth
             else:
                 savefig(outfile)
