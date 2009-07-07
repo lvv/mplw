@@ -1,0 +1,7 @@
+MPLW (MatplotLib Wrapper)  -- AsciiDoc filter 
+=================================================\
+
+include::summary.txt[]
+
+Full documentation at http://volnitsky.com/project/mplw
+
