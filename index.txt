@@ -1,60 +1,71 @@
 
-= MPLW - MatPlotLib  AsciiDoc Filter
+MPLW - MatPlotLib  AsciiDoc Filter
+==================================
+
+include::summary.txt[]
 
 
-Usage
------
+Examples
+--------
 
-In asciidoc file:
-
+Let say we need sin() chart like this:
+include::example-sin.txt[]
+We just need to include following MPL code snippet:
 ---------------------------------------
-include::example.asciidoc[]
+include::example-sin.txt[]
+---------------------------------------
+Asciidoc will send inline python code between "----" lines to stdin of mplw.py, and then insert produced PNG into html. 
+
+Now let say we have some data from two experiments and we need a chart like this:
+include::example-data.txt[]
+Following snippet insite asciidoc will do this:
+---------------------------------------
+include::example-data.txt[]
 ---------------------------------------
 
-Will produce following picture: 
+Text after +"____"+ is plot data table form.  The c[][] is matrix where c[0] is vector
+holding 1st col from above table, c[1] is second column and so on.
 
-include::example.asciidoc[]
-        
-Text between "----" lines send to stdin of mplw.py. This text further devided with +++"___"+++ line. 
-Top part is inline python code calling matplotlib functions and bottom part is plot data. 
 
-This inline code evaluated in environment with matplotlib imported:
+Simplified MPL
+--------------
+
+Python inline code evaluated in environment with matplotlib imported:
 -------------------------------
 from matplotlib.pyplot import *                                                                                                          
+from numpy import *                                                                                                          
 -------------------------------
 After inline code evaluated mplw.py executes code which writes PNG file.
 
-If there is no bottom part (plot data),  inline code should provide code to read plot data itself.
+If there is no bottom part (plot data),  inline code should provide code to
+read plot data itself from some file.
 
 Also if lvv_style is enabled (default), MPLW adjust figure borders sizes  (mpl does
 not do it automatically), enables grid and sets figure backrgound to light grey. 
 
-In source table above, 1st col is X-values, 2nd and 3rd are Y1 and Y2-values.
-Matplotlib function plot() expect X-points-vector (arg1) and
-Y-points-vector(arg2).  The c[][] is matrix where c[0] is vector
-holding 1st col from above table, c[1] is second column and so on.
-Asciidoc will produce from this html file and `example.png`
 
-
-
+This page is made with asciidoc, you can see how it was made: 
+- http://github.com/lvv/mplw/index.txt[source code of this page]
+- http://github.com/lvv/mplw/example-sin.txt[example-sin.txt]
+        
 
 Install
 -------
 
--------------
+---------------------------------------------
 emerge -u matplotlib asciidoc git
 git clone git://github.com/lvv/mplw.git
 cd mplw.git
 make install  # this will create 2 files: /etc/asciidoc/filters/mpl/{mpl.conf,mplw.py}
---------------
+---------------------------------------------
 
 Replace `emerge` with your distro package manager.
 
 
-About
-------
-This is filter for asciidoc.  It based on GNU licensed graphviz2png.py by Gouichi
-Iisaka .  I actully don't know python.  I've just replaced small section in it
+History
+-------
+MPLW is based on GNU licensed graphviz2png.py by Gouichi
+Iisaka.  I actully don't know python.  I've just replaced small section in it
 (marked with ### ###, search for "lvv"),  did a lot of
 "s/graphviz/mpl/", found some sample code on the net for reading files in
 python and cobbled up the mplw.py (matplotlib wrapper).

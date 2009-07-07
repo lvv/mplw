@@ -48,4 +48,21 @@ ________________
 'green', 3	
 ------------------------------
 
+["mpl", ".3.png"]
+-----------------------------
+figure(figsize=(7,2))
+title('BenchMark')
+xlabel('Speed')
+plot(range(50), sin(range(50))
+________________
+'red',	1	
+'blue',  2	
+'green', 3	
+'LONG LONG LONG LONG', 5	
+'green', 3	
+'green', 3	
+'green', 3	
+'green', 3	
+'green', 3	
+------------------------------
  vim:ft=python

@@ -4,9 +4,11 @@ import os, sys
 from optparse import *
 
 #from matplotlib.pyplot import barh, title, grid , savefig, yticks, xlabel
+
 from matplotlib.pyplot import *
+from numpy  import *
+
 import csv
-import numpy
 import string
 
 __AUTHOR__ = "Gouichi Iisaka <iisaka51@gmail.com>"
@@ -120,18 +122,25 @@ LICENSE
         try:
             #########################################################  lvv
 
-            # read py code
+            ####  READ PY CODE
+
             eval_lines=''
+            embeded_data = False
+
             for  line in infile:
                 if   line.startswith('___'): 
                     embeded_data = True
                     break
                 eval_lines += line
 
-            # read data
+
+            ####  READ DATA
+
             if  embeded_data: 
                 m = []  # matrix
 
+                #  TODO replace csv with  http://matplotlib.sourceforge.net/api/mlab_api.html#matplotlib.mlab.csv2rec
+                # aslo see http://matplotlib.sourceforge.net/api/mlab_api.html
                 for row in csv.reader(infile, delimiter=',', quotechar="'", skipinitialspace=True):
                     if row:    # if not blank line
                         m.append(row)  
@@ -145,20 +154,23 @@ LICENSE
 
             infile.close()
 
-            # eval
+
+            ####  EVAL
+
             exec eval_lines
 
             lvv_style = True
             if lvv_style:
                 auto_adjust(gcf())
 
-                grid(True)
+                grid(True, color='0.7')
                 ### TODO GRIDS
+                #rcParams['grid.color'] = 'g'  # does not work
                 #grid.color       :   black   # grid color
                 #grid.linestyle   :   :       # dotted
                 #grid.linewidth   :   0.5     # in points
 
-                savefig(outfile, facecolor='0.95', edgecolor='0.8')
+                savefig(outfile, facecolor='0.95', edgecolor='0.8') # MPL bug? not all borders are drawn
                 # TODO axes.linewidth      : 1.0     # edge linewidth
             else:
                 savefig(outfile)
@@ -191,7 +203,7 @@ LICENSE
 
 def benchmark(label, val, label_part=-1):
     bar_width = 0.35
-    ytick_pos=numpy.arange(len(val))+.5
+    ytick_pos = arange(len(val))+.5
     label.reverse()
     val.reverse()
     # 
@@ -221,7 +233,8 @@ def auto_adjust(fig):
     # top,  title
     top_space = 1.7   # em
 
-    if  len(getp(axes[0],property='title')) != 0:  # if there is a title
+    #if  len(getp(axes[0],property='title')) != 0:  # if there is a title
+    if  getp(axes[0],property='title'):  # if there is a title  # FIXME: always true
         title_fontsize = matplotlib.font_manager.font_scalings[rcParams['axes.titlesize']] * fontsize
         top_adjust = 1.0 - title_fontsize/72 * top_space  /h 
         fig.subplots_adjust(top=top_adjust)
@@ -246,7 +259,7 @@ def auto_adjust(fig):
     max_ytick_length = max(6, max_ytick_length)
     ytick_fontsize = matplotlib.font_manager.font_scalings[rcParams['ytick.labelsize']] * fontsize
     left_adjust = max_ytick_length * char_width * ytick_fontsize/72 /w
-    if  len(getp(axes[0],property='ylabel')) != 0:   # ylable
+    if  len(getp(axes[0],property='ylabel')) > 0:   # ylable   # FIXME: always true
         ylabel_fontsize = matplotlib.font_manager.font_scalings[rcParams['axes.labelsize']] * fontsize
         left_adjust += ylabel_fontsize/72 /w
     fig.subplots_adjust(left=left_adjust)
@@ -260,4 +273,4 @@ if __name__ == "__main__":
     app = Application()
     app.run()
 
-# vim:ts=4 et sw=4:
+# vim:ts=4 et sw=4 ft=python:
