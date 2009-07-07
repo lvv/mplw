@@ -1,5 +1,5 @@
 
-MPLW - MatPlotLib  AsciiDoc Filter
+MPLW - Matplotlib  AsciiDoc filter
 ==================================
 
 include::summary.txt[]
@@ -18,7 +18,7 @@ Asciidoc will send inline python code between "----" lines to stdin of mplw.py, 
 
 Now let say we have some data from two experiments and we need a chart like this:
 include::example-data.txt[]
-Following snippet insite asciidoc will do this:
+Following snippet inside asciidoc will do this:
 ---------------------------------------
 include::example-data.txt[]
 ---------------------------------------
@@ -26,7 +26,7 @@ include::example-data.txt[]
 Text after +"____"+ is plot data in table form.  The c[][] is matrix where c[0] is vector
 holding 1st col from above table, c[1] is second column and so on.
 
-
++
 This page is made with asciidoc, you can see how it was made: 
 
 * http://github.com/lvv/mplw/blob/master/index.txt[source code of this page]
@@ -37,7 +37,7 @@ This page is made with asciidoc, you can see how it was made:
 How MPLW API differ from MPL
 ----------------------------
 
-MPL was some what simplified and extended for use as AsciiDoc filter.
+MPL was somewhat simplified and extended for use as AsciiDoc filter.
 
 Python inline code evaluated in environment with following modules imported without namespace:
 -------------------------------
@@ -50,12 +50,11 @@ After MPL inline code evaluated,  mplw.py executes code which writes PNG file.
 If there is inline plot data, MPLW fills in 'c' matrix.  If entry looks like number it is converted to float. 
 
 Also if lvv_style is enabled (default), MPLW adjust figure borders sizes  (mpl does
-not do it automatically), enables grid and sets figure backrgound to light grey. 
+not do it automatically), enables grid and sets figure background to light grey. 
 
-There is ploting function 'benchmark' based on 'barh'.  It should probably be
-in MPL code not in MPLW. I will send patch to MPL project in the future.
+There is plotting function 'benchmark' based on 'barh'.  It should probably be
+in MPL code not in MPLW. I will send patch to MPL project.
 See also http://volnitsky.com/project/lvvlib/array[example usage of benchmark]
-
 
 
 
@@ -72,8 +71,8 @@ make install  # this will create 2 files: /etc/asciidoc/filters/mpl/{mpl.conf,mp
 Replace `emerge` with your distro package manager.
 
 
-History
--------
+About
+-----
 MPLW is based on GNU licensed graphviz2png.py by Gouichi
 Iisaka.  I actully don't know python.  I've just replaced small section in it
 (marked with ### ###, search for "lvv"),  did a lot of
