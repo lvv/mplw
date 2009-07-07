@@ -26,7 +26,6 @@ include::example-data.txt[]
 Text after +"____"+ is plot data in table form.  The c[][] is matrix where c[0] is vector
 holding 1st col from above table, c[1] is second column and so on.
 
-+
 This page is made with asciidoc, you can see how it was made: 
 
 * http://github.com/lvv/mplw/blob/master/index.txt[source code of this page]
@@ -65,7 +64,7 @@ Install
 emerge -u matplotlib asciidoc git
 git clone git://github.com/lvv/mplw.git
 cd mplw.git
-make install  # this will create 2 files: /etc/asciidoc/filters/mpl/{mpl.conf,mplw.py}
+make install          # this will create 2 files: /etc/asciidoc/filters/mpl/{mpl.conf,mplw.py}
 ---------------------------------------------
 
 Replace `emerge` with your distro package manager.
@@ -73,8 +72,8 @@ Replace `emerge` with your distro package manager.
 
 About
 -----
-MPLW is based on GNU licensed graphviz2png.py by Gouichi
-Iisaka.  I actully don't know python.  I've just replaced small section in it
+MPLW is based on GNU licensed graphviz2png.py by Gouichi Iisaka. 
+I actully don't know python.  I've just replaced small section in it
 (marked with ### ###, search for "lvv"),  did a lot of
 "s/graphviz/mpl/", found some sample code on the net for reading files in
 python and cobbled up the mplw.py (matplotlib wrapper).
@@ -85,6 +84,11 @@ Todo
   - if title not set take file name as title
   - if multiple input files specirfied: make one overlayed chart
 * http://ditaa.sourceforge.net[DIagrams Through Ascii Art]
+* Styles selection (now it is forced lvv_style)
+* PNG size should be specified in filter parameters and passed to MPLW (I don't know how to do this)
+* PNG should be centered be default or at least filter should accept param `align=center` (don't know how to do this)
+* SVG? (MPL cad gen svg, resizable svg charts are nice)
+
 
 .References
 - [[[1]]]   http://www.methods.co.nz/asciidoc/asciidoc-graphviz-sample.html[Graphviz filter for AsciiDoc]
