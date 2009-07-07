@@ -23,31 +23,41 @@ Following snippet insite asciidoc will do this:
 include::example-data.txt[]
 ---------------------------------------
 
-Text after +"____"+ is plot data table form.  The c[][] is matrix where c[0] is vector
+Text after +"____"+ is plot data in table form.  The c[][] is matrix where c[0] is vector
 holding 1st col from above table, c[1] is second column and so on.
 
 
-Simplified MPL
---------------
+This page is made with asciidoc, you can see how it was made: 
 
-Python inline code evaluated in environment with matplotlib imported:
+* http://github.com/lvv/mplw/blob/master/index.txt[source code of this page]
+* http://github.com/lvv/mplw/blob/master/example-sin.txt[example-sin.txt]
+* http://github.com/lvv/mplw/blob/master/example-data.txt[example-data.txt]
+        
+
+How MPLW API differ from MPL
+----------------------------
+
+MPL was some what simplified and extended for use as AsciiDoc filter.
+
+Python inline code evaluated in environment with following modules imported without namespace:
 -------------------------------
 from matplotlib.pyplot import *                                                                                                          
 from numpy import *                                                                                                          
 -------------------------------
-After inline code evaluated mplw.py executes code which writes PNG file.
 
-If there is no bottom part (plot data),  inline code should provide code to
-read plot data itself from some file.
+After MPL inline code evaluated,  mplw.py executes code which writes PNG file.
+
+If there is inline plot data, MPLW fills in 'c' matrix.  If entry looks like number it is converted to float. 
 
 Also if lvv_style is enabled (default), MPLW adjust figure borders sizes  (mpl does
 not do it automatically), enables grid and sets figure backrgound to light grey. 
 
+There is ploting function 'benchmark' based on 'barh'.  It should probably be
+in MPL code not in MPLW. I will send patch to MPL project in the future.
+See also http://volnitsky.com/project/lvvlib/array[example usage of benchmark]
 
-This page is made with asciidoc, you can see how it was made: 
-- http://github.com/lvv/mplw/index.txt[source code of this page]
-- http://github.com/lvv/mplw/example-sin.txt[example-sin.txt]
-        
+
+
 
 Install
 -------
