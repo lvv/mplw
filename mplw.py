@@ -223,12 +223,9 @@ def benchmark(label, val, label_part=-1):
     rcParams['axes.labelsize'] = 'large'
 
 def auto_adjust(fig):
-    #axes =  getp(fig,property='axes')
     axes =  fig.get_axes()
 
-    #h = getp(fig, property='figheight') # inch
     h = fig.get_figheight()             # inch
-    #w = getp(fig, property='figwidth')  # inch
     w = fig.get_figwidth()                  # inch
     fontsize = rcParams['font.size']    # point
     dpi = rcParams['savefig.dpi']       # point / inch
@@ -256,8 +253,7 @@ def auto_adjust(fig):
     char_width = 0.8    # em
 
     current = gca().get_position().get_points()
-    ll = getp(gca(),property='yticklabels')
-    #max_ytick_length = max([len(getp(l,property='text')) for l in ll])
+    ll = gca().get_yticklabels()
     max_ytick_length = max([len(l.get_text()) for l in ll])
     max_ytick_length = max(6, max_ytick_length)
     ytick_fontsize = matplotlib.font_manager.font_scalings[rcParams['ytick.labelsize']] * fontsize
