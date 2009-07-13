@@ -160,7 +160,7 @@ LICENSE
             exec eval_lines
 
             lvv_style = True
-            if lvv_style:
+            if  lvv_style:
                 auto_adjust(gcf())
 
                 grid(True, color='0.7')
@@ -223,18 +223,20 @@ def benchmark(label, val, label_part=-1):
     rcParams['axes.labelsize'] = 'large'
 
 def auto_adjust(fig):
-    axes =  getp(fig,property='axes')
+    #axes =  getp(fig,property='axes')
+    axes =  fig.get_axes()
 
-    h = getp(fig, property='figheight') # inch
-    w = getp(fig, property='figwidth')  # inch
+    #h = getp(fig, property='figheight') # inch
+    h = fig.get_figheight()             # inch
+    #w = getp(fig, property='figwidth')  # inch
+    w = fig.get_figwidth()                  # inch
     fontsize = rcParams['font.size']    # point
     dpi = rcParams['savefig.dpi']       # point / inch
 
     # top,  title
     top_space = 1.7   # em
 
-    #if  len(getp(axes[0],property='title')) != 0:  # if there is a title
-    if  getp(axes[0],property='title'):  # if there is a title  # FIXME: always true
+    if  axes[0].get_title():  # if there is a title  # FIXME: always true
         title_fontsize = matplotlib.font_manager.font_scalings[rcParams['axes.titlesize']] * fontsize
         top_adjust = 1.0 - title_fontsize/72 * top_space  /h 
         fig.subplots_adjust(top=top_adjust)
@@ -244,7 +246,7 @@ def auto_adjust(fig):
 
     xtick_fontsize = matplotlib.font_manager.font_scalings[rcParams['xtick.labelsize']] * fontsize
     bottom_adjust = xtick_fontsize/72 /h * bottom_space
-    if  len(getp(axes[0],property='xlabel')) != 0:  #  xlabel
+    if  len(axes[0].get_xlabel()) != 0:  #  xlabel
         xlabel_fontsize = matplotlib.font_manager.font_scalings[rcParams['axes.labelsize']] * fontsize
         bottom_adjust += xlabel_fontsize/72 /h
 
@@ -253,13 +255,14 @@ def auto_adjust(fig):
     # left labels
     char_width = 0.8    # em
 
-    current = getp(getp(gca(),property='position'),property='points')
+    current = gca().get_position().get_points()
     ll = getp(gca(),property='yticklabels')
-    max_ytick_length = max([len(getp(l,property='text')) for l in ll])
+    #max_ytick_length = max([len(getp(l,property='text')) for l in ll])
+    max_ytick_length = max([len(l.get_text()) for l in ll])
     max_ytick_length = max(6, max_ytick_length)
     ytick_fontsize = matplotlib.font_manager.font_scalings[rcParams['ytick.labelsize']] * fontsize
     left_adjust = max_ytick_length * char_width * ytick_fontsize/72 /w
-    if  len(getp(axes[0],property='ylabel')) > 0:   # ylable   # FIXME: always true
+    if  len(axes[0].get_ylabel()) > 0:   # ylable   # FIXME: always true
         ylabel_fontsize = matplotlib.font_manager.font_scalings[rcParams['axes.labelsize']] * fontsize
         left_adjust += ylabel_fontsize/72 /w
     fig.subplots_adjust(left=left_adjust)

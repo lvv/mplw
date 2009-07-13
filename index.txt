@@ -5,20 +5,35 @@ MPLW - Matplotlib  AsciiDoc filter
 include::summary.txt[]
 
 
-Examples
---------
+Introduction
+------------
 
-Let say we need sin() chart like this:
+Let say we need 'sin(x)' chart like this:
 include::example-sin.txt[]
-We just need to include following MPL code snippet:
+For this we include following MPL code snippet:
 ---------------------------------------
 include::example-sin.txt[]
 ---------------------------------------
-Asciidoc will send inline python code between "----" lines to stdin of mplw.py, and then insert produced PNG into html. 
+Asciidoc will send inline python code between "----" lines to stdin of mplw.py,
+and generate HTML file with <img ...> tag for MPLW produced PNG file. 
+
+["graphviz", "flow.png"]
+---------------------------------------------------------------------
+digraph G {
+	rankdir=LR;
+	node [shape=plaintext];
+	{  node [shape=box];   AsciiDoc;   MPLW; }
+	{  rank=same;          "PNG file";  "HTML file"; }
+
+	"AsciiDoc document"  ->  AsciiDoc                                        ->  "HTML file";
+	                         AsciiDoc   ->  "MPL script snippet"  ->  MPLW   ->  "PNG file";
+}                                                                                         
+--------------------------------------------------------------------
+
 
 Now let say we have some data from two experiments and we need a chart like this:
 include::example-data.txt[]
-Following snippet inside asciidoc will do this:
+It can be made with this:
 ---------------------------------------
 include::example-data.txt[]
 ---------------------------------------
@@ -26,39 +41,10 @@ include::example-data.txt[]
 Text after +"____"+ is plot data in table form.  The c[][] is matrix where c[0] is vector
 holding 1st col from above table, c[1] is second column and so on.
 
-This page is made with asciidoc, you can see how it was made: 
-
-* http://github.com/lvv/mplw/blob/master/index.txt[source code of this page]
-* http://github.com/lvv/mplw/blob/master/example-sin.txt[example-sin.txt]
-* http://github.com/lvv/mplw/blob/master/example-data.txt[example-data.txt]
-        
-
-How MPLW API differ from MPL
-----------------------------
-
-MPL was somewhat simplified and extended for use as AsciiDoc filter.
-
-Python inline code evaluated in environment with following modules imported without namespace:
--------------------------------
-from matplotlib.pyplot import *                                                                                                          
-from numpy import *                                                                                                          
--------------------------------
-
-After MPL inline code evaluated,  mplw.py executes code which writes PNG file.
-
-If there is inline plot data, MPLW fills in 'c' matrix.  If entry looks like number it is converted to float. 
-
-Also if lvv_style is enabled (default), MPLW adjust figure borders sizes  (mpl does
-not do it automatically), enables grid and sets figure background to light grey. 
-
-There is plotting function 'benchmark' based on 'barh'.  It should probably be
-in MPL code not in MPLW. I will send patch to MPL project.
-See also http://volnitsky.com/project/lvvlib/array[example usage of benchmark]
-
-
 
 Install
 -------
+Replace `emerge` with your distro package manager:
 
 ---------------------------------------------
 emerge -u matplotlib asciidoc git
@@ -67,7 +53,30 @@ cd mplw.git
 make install          # this will create 2 files: /etc/asciidoc/filters/mpl/{mpl.conf,mplw.py}
 ---------------------------------------------
 
-Replace `emerge` with your distro package manager.
+
+
+How MPLW API differ from MPL
+----------------------------
+MPL was somewhat simplified for use as AsciiDoc filter.
+
+* Python inline code evaluated in environment with following modules imported without namespace:
+-------------------------------
+from matplotlib.pyplot import *                                                                                                          
+from numpy import *                                                                                                          
+-------------------------------
+
+* If there is inline plot data, MPLW fills in 'c' matrix.  If entry looks like number it is converted to float. 
+* After MPL inline code evaluated,  mplw.py writes chart PNG file. You must not 
+  call MPL's show() function.
+* If lvv_style is enabled (currently forced) MPLW will:
+	- adjust figure borders sizes to accommodate tick text and x/ylabel text.
+	  MPL does not do it automatically, it only have correct frame size if image have default size.
+	- enable grid.
+	- set figure frame background to light grey and darker grey for frame
+	  border. Note: there is bug in MPL, borders drawn not on all sides.
+* There is also plotting function 'benchmark' based on 'barh'.  It should probably be
+  in MPL code, not in MPLW. I will send patch to MPL project.
+  See http://volnitsky.com/project/lvvlib/array[example usage of benchmark]
 
 
 About
@@ -77,21 +86,27 @@ I actully don't know python.  I've just replaced small section in it
 (marked with ### ###, search for "lvv"),  did a lot of
 "s/graphviz/mpl/", found some sample code on the net for reading files in
 python and cobbled up the mplw.py (matplotlib wrapper).
+MPLW is currently in alpha state, API not yet stable. 
+
 
 Todo
 ----
-* When mplw.py used not as asciidoc filter:
+* Code cleanup and make tabs size consistent in mplw.py source
+* Testing was done only with xhtml11 backend
+* For inline-data add optional column header line,  which can be used for plot legend
+* When mplw.py used not as asciidoc filter (but as utility generating PNGs from text files):
   - if title not set take file name as title
-  - if multiple input files specirfied: make one overlayed chart
-* http://ditaa.sourceforge.net[DIagrams Through Ascii Art]
-* Styles selection (now it is forced lvv_style)
+  - if multiple input files specified: make one overlay-ed chart
+* Styles selection (now it forces lvv_style)
 * PNG size should be specified in filter parameters and passed to MPLW (I don't know how to do this)
 * PNG should be centered be default or at least filter should accept param `align=center` (don't know how to do this)
-* SVG? (MPL cad gen svg, resizable svg charts are nice)
+* SVG? (MPL can generate SVG)
+* DITAA? Http://ditaa.sourceforge.net[DIagrams Through Ascii Art],
+  Http://blog.m3r.nl/personal/full-text-based-document-generation-using-asciidoc[Full text-based document generation using asciidoc and ditaa]
 
 
 .References
 - [[[1]]]   http://www.methods.co.nz/asciidoc/asciidoc-graphviz-sample.html[Graphviz filter for AsciiDoc]
-- [[[2]]]   http://matplotlib.sourceforge.net[MatPlotLib]
+- [[[2]]]   httpx://matplotlib.sourceforge.net[MatPlotLib]
 
 // vim:ts=8 ft=asciidoc:
