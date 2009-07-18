@@ -2,6 +2,8 @@
 HOMEDIR ?= /home/lvv/p/volnitsky.com/
 include $(HOMEDIR)/include.mk
 
+inedex.html: example*.txt
+
 t.html:  t.ad *.py *.conf 
 	rm -f .*.png
 	asciidoc --unsafe  $<   &&   firefox  $@

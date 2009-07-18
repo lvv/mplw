@@ -11,26 +11,12 @@ from numpy  import *
 import csv
 import string
 
-__AUTHOR__ = "Gouichi Iisaka <iisaka51@gmail.com>"
-__VERSION__ = '1.1.3'
-
 class EApp(Exception):
     '''Application specific exception.'''
     pass
 
 class Application():
     '''
-NAME
-    graphviz2png - Converts textual graphviz notation to PNG file
-
-SYNOPSIS
-    graphviz2png [options] INFILE
-
-DESCRIPTION
-    This filter reads Graphviz notation text from the input file
-    INFILE (or stdin if INFILE is -), converts it to a PNG image file.
-
-
 OPTIONS
     -o OUTFILE, --outfile=OUTFILE
         The file name of the output file. If not specified the output file is
@@ -39,26 +25,6 @@ OPTIONS
     -v, --verbose
         Verbosely print processing information to stderr.
 
-    -h, --help
-        Print this documentation.
-
-    -V, --version
-        Print program version number.
-
-SEE ALSO
-    matplotlib.com
-
-AUTHOR
-    Written by Gouichi Iisaka, <iisaka51@gmail.com>
-
-THANKS
-    Stuart Rackham, <srackham@gmail.com>
-    This script was inspired by his music2png.py and AsciiDoc
-
-LICENSE
-    Copyright (C) 2008-2009 Gouichi Iisaka.
-    Free use of this software is granted under the terms of
-    the GNU General Public License (GPL).
     '''
 
     def __init__(self, argv=None):
@@ -66,17 +32,14 @@ LICENSE
             argv = sys.argv
 
         self.usage = '%prog [options] inputfile'
-        self.version = 'Version: %s\n' % __VERSION__
-        self.version += 'Copyright(c) 2008-2009: %s\n' % __AUTHOR__
-
         self.option_list = [
             Option("-o", "--outfile", action="store",
             dest="outfile",
             help="Output file"),
             Option("-L", "--layout", action="store",
-                    dest="layout", default="dot", type="choice",
-                    choices=['dot','neato','twopi','circo','fdp'],
-            help="Layout type. LAYOUT=<dot|neato|twopi|circo|fdp>"),
+                    dest="layout", default="asciidoc", type="choice",
+                    choices=['asciidoc','none'],
+            help="Layout type. LAYOUT=<asciidoc>"),
             Option("--debug", action="store_true",
             dest="do_debug",
             help=SUPPRESS_HELP),
@@ -85,7 +48,7 @@ LICENSE
             help="verbose output"),
         ]
 
-        self.parser = OptionParser( usage=self.usage, version=self.version,
+        self.parser = OptionParser( usage=self.usage, 
                                     option_list=self.option_list)
         (self.options, self.args) = self.parser.parse_args()
 
@@ -159,19 +122,23 @@ LICENSE
 
             exec eval_lines
 
-            lvv_style = True
-            if  lvv_style:
-                auto_adjust(gcf())
+            if  self.options.layout == 'asciidoc':
 
-                grid(True, color='0.7')
-                ### TODO GRIDS
-                #rcParams['grid.color'] = 'g'  # does not work
-                #grid.color       :   black   # grid color
-                #grid.linestyle   :   :       # dotted
-                #grid.linewidth   :   0.5     # in points
+                str_ver=matplotlib.__version__.split('.')
+                ver=float(str_ver[0]) + float(str_ver[1])/1000
+                if   ver >= 0.92:  
 
-                savefig(outfile, facecolor='0.95', edgecolor='0.8') # MPL bug? not all borders are drawn
-                # TODO axes.linewidth      : 1.0     # edge linewidth
+                    auto_adjust(gcf())
+
+                    grid(True, color='0.7')
+                    ### TODO GRIDS
+                    #rcParams['grid.color'] = 'g'  # does not work
+                    #grid.color       :   black   # grid color
+                    #grid.linestyle   :   :       # dotted
+                    #grid.linewidth   :   0.5     # in points
+
+                    savefig(outfile, facecolor='0.95', edgecolor='0.8') # MPL bug? not all edges(borders) are drawn
+                    # TODO axes.linewidth      : 1.0     # edge linewidth
             else:
                 savefig(outfile)
             #########################################################

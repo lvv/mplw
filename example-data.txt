@@ -4,8 +4,9 @@
 figure(figsize=(5,2.5))
 title('Two Charts')
 xlabel('Some text')
-plot(c[0],c[1], c[0], c[2])  # (x, y1, x, y2)
-# columns:  x, y1, y2
+plot(c[0],c[1])		# x, y1
+plot(c[0],c[2])		# x, y2
+# columns below:  x, y1, y2
 ___________________________________________
 1.0,    2.0,    1.0
 2.0,    4.0,    1.2

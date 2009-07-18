@@ -10,6 +10,7 @@ Introduction
 
 Let say we need 'sin(x)' chart like this:
 include::example-sin.txt[]
+
 For this we include following MPL code snippet:
 ---------------------------------------
 include::example-sin.txt[]
@@ -25,8 +26,8 @@ digraph G {
 	{  node [shape=box];   AsciiDoc;   MPLW; }
 	{  rank=same;          "PNG file";  "HTML file"; }
 
-	"AsciiDoc document"  ->  AsciiDoc                                        ->  "HTML file";
-	                         AsciiDoc   ->  "MPL script snippet"  ->  MPLW   ->  "PNG file";
+	"source TXT file"  ->  AsciiDoc                                        ->  "HTML file";
+	                       AsciiDoc   ->  "MPL script snippet"  ->  MPLW   ->  "PNG file";
 }                                                                                         
 --------------------------------------------------------------------
 
@@ -41,17 +42,21 @@ include::example-data.txt[]
 Text after +"____"+ is plot data in table form.  The c[][] is matrix where c[0] is vector
 holding 1st col from above table, c[1] is second column and so on.
 
+See also http://matplotlib.sourceforge.net/gallery.html[matplotlib gallery].
+
 
 Install
 -------
 Replace `emerge` with your distro package manager:
 
 ---------------------------------------------
-emerge -u matplotlib asciidoc git
+emerge -u matplotlib asciidoc git 	# python and  numpy can be pulled as dependencies
 git clone git://github.com/lvv/mplw.git
 cd mplw.git
 make install          # this will create 2 files: /etc/asciidoc/filters/mpl/{mpl.conf,mplw.py}
 ---------------------------------------------
+
+Matplotlib version 0.98 or higher required.  It might work with 0.91 but you will need to set `lvv_style` to `False`.
 
 
 
@@ -82,10 +87,6 @@ from numpy import *
 About
 -----
 MPLW is based on GNU licensed graphviz2png.py by Gouichi Iisaka. 
-I actully don't know python.  I've just replaced small section in it
-(marked with ### ###, search for "lvv"),  did a lot of
-"s/graphviz/mpl/", found some sample code on the net for reading files in
-python and cobbled up the mplw.py (matplotlib wrapper).
 MPLW is currently in alpha state, API not yet stable. 
 
 
@@ -107,6 +108,8 @@ Todo
 
 .References
 - [[[1]]]   http://www.methods.co.nz/asciidoc/asciidoc-graphviz-sample.html[Graphviz filter for AsciiDoc]
-- [[[2]]]   httpx://matplotlib.sourceforge.net[MatPlotLib]
+- [[[2]]]   http://matplotlib.sourceforge.net[MatPlotLib - python plotting library]
+- [[[3]]]   http://code.google.com/p/scitools/wiki/EasyvizDocumentation[Easyviz - Python library for scientific computing]
+- [[[4]]]   http://detexify.kirelabs.org/classify.html[drawing to  LaTeX symbol]
 
 // vim:ts=8 ft=asciidoc:
