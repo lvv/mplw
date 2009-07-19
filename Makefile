@@ -1,17 +1,21 @@
 
 HOMEDIR ?= /home/lvv/p/volnitsky.com/
 include $(HOMEDIR)/include.mk
+CLEAN_LIST += *.png
 
 inedex.html: example*.txt
+
+%.png : %.mplw
+	cat $< | mplw.py - -o $@
 
 t.html:  t.ad *.py *.conf 
 	rm -f .*.png
 	asciidoc --unsafe  $<   &&   firefox  $@
 
 mplw:
-	rm -f .t.png
-	cat t.mplw  |  mplw.py -o .t.png  - 
-	display .t.png
+	rm -f t.png
+	cat t.mplw  |  mplw.py -o t.png  - 
+	display t.png
 
 
 

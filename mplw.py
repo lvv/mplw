@@ -18,6 +18,9 @@ class EApp(Exception):
 class Application():
     '''
 OPTIONS
+    -s OUTFILE, --style=OUTFILE
+        plot style 
+
     -o OUTFILE, --outfile=OUTFILE
         The file name of the output file. If not specified the output file is
         named like INFILE but with a .png file name extension.
@@ -36,8 +39,8 @@ OPTIONS
             Option("-o", "--outfile", action="store",
             dest="outfile",
             help="Output file"),
-            Option("-L", "--layout", action="store",
-                    dest="layout", default="asciidoc", type="choice",
+            Option("-s", "--style", action="store",
+                    dest="style", default="asciidoc", type="choice",
                     choices=['asciidoc','none'],
             help="Layout type. LAYOUT=<asciidoc>"),
             Option("--debug", action="store_true",
@@ -122,23 +125,22 @@ OPTIONS
 
             exec eval_lines
 
-            if  self.options.layout == 'asciidoc':
+            str_ver=matplotlib.__version__.split('.')
+            ver=float(str_ver[0]) + float(str_ver[1])/1000
 
-                str_ver=matplotlib.__version__.split('.')
-                ver=float(str_ver[0]) + float(str_ver[1])/1000
-                if   ver >= 0.92:  
+            if    self.options.style == 'asciidoc'   and   ver > 0.092:  
 
-                    auto_adjust(gcf())
+                auto_adjust(gcf())
 
-                    grid(True, color='0.7')
-                    ### TODO GRIDS
-                    #rcParams['grid.color'] = 'g'  # does not work
-                    #grid.color       :   black   # grid color
-                    #grid.linestyle   :   :       # dotted
-                    #grid.linewidth   :   0.5     # in points
+                grid(True, color='0.7')
+                ### TODO GRIDS
+                #rcParams['grid.color'] = 'g'  # does not work
+                #grid.color       :   black   # grid color
+                #grid.linestyle   :   :       # dotted
+                #grid.linewidth   :   0.5     # in points
 
-                    savefig(outfile, facecolor='0.95', edgecolor='0.8') # MPL bug? not all edges(borders) are drawn
-                    # TODO axes.linewidth      : 1.0     # edge linewidth
+                savefig(outfile, facecolor='0.95', edgecolor='0.8') # MPL bug? not all edges(borders) are drawn
+                # TODO axes.linewidth      : 1.0     # edge linewidth
             else:
                 savefig(outfile)
             #########################################################
@@ -200,7 +202,7 @@ def auto_adjust(fig):
     # top,  title
     top_space = 1.7   # em
 
-    if  axes[0].get_title():  # if there is a title  # FIXME: always true
+    if  axes[0].get_title():  # if there is a title  # FIXME: MPL bug? always true
         title_fontsize = matplotlib.font_manager.font_scalings[rcParams['axes.titlesize']] * fontsize
         top_adjust = 1.0 - title_fontsize/72 * top_space  /h 
         fig.subplots_adjust(top=top_adjust)
@@ -225,7 +227,7 @@ def auto_adjust(fig):
     max_ytick_length = max(6, max_ytick_length)
     ytick_fontsize = matplotlib.font_manager.font_scalings[rcParams['ytick.labelsize']] * fontsize
     left_adjust = max_ytick_length * char_width * ytick_fontsize/72 /w
-    if  len(axes[0].get_ylabel()) > 0:   # ylable   # FIXME: always true
+    if  len(axes[0].get_ylabel()) > 0:   # ylable   # FIXME: MPL bug? always true
         ylabel_fontsize = matplotlib.font_manager.font_scalings[rcParams['axes.labelsize']] * fontsize
         left_adjust += ylabel_fontsize/72 /w
     fig.subplots_adjust(left=left_adjust)

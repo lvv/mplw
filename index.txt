@@ -40,7 +40,7 @@ include::example-data.txt[]
 ---------------------------------------
 
 Text after +"____"+ is plot data in table form.  The c[][] is matrix where c[0] is vector
-holding 1st col from above table, c[1] is second column and so on.
+holding 1st column from above table, c[1] is second column and so on.
 
 See also http://matplotlib.sourceforge.net/gallery.html[matplotlib gallery].
 
@@ -56,13 +56,13 @@ cd mplw.git
 make install          # this will create 2 files: /etc/asciidoc/filters/mpl/{mpl.conf,mplw.py}
 ---------------------------------------------
 
-Matplotlib version 0.98 or higher required.  It might work with 0.91 but you will need to set `lvv_style` to `False`.
+Matplotlib version 0.098 or higher required.
 
 
 
 How MPLW API differ from MPL
 ----------------------------
-MPL was somewhat simplified for use as AsciiDoc filter.
+MPL API was somewhat simplified for use as AsciiDoc filter.
 
 * Python inline code evaluated in environment with following modules imported without namespace:
 -------------------------------
@@ -71,18 +71,20 @@ from numpy import *
 -------------------------------
 
 * If there is inline plot data, MPLW fills in 'c' matrix.  If entry looks like number it is converted to float. 
-* After MPL inline code evaluated,  mplw.py writes chart PNG file. You must not 
-  call MPL's show() function.
-* If lvv_style is enabled (currently forced) MPLW will:
-	- adjust figure borders sizes to accommodate tick text and x/ylabel text.
-	  MPL does not do it automatically, it only have correct frame size if image have default size.
-	- enable grid.
-	- set figure frame background to light grey and darker grey for frame
-	  border. Note: there is bug in MPL, borders drawn not on all sides.
-* There is also plotting function 'benchmark' based on 'barh'.  It should probably be
+* If 'style' is other then `"none"`, then it is applied.
+* After MPL inline code evaluated,  mplw.py writes chart PNG file. You must not call MPL's show() function.
+* There is also plotting function 'benchmark' available, based on 'barh'.  It should probably be
   in MPL code, not in MPLW. I will send patch to MPL project.
-  See http://volnitsky.com/project/lvvlib/array[example usage of benchmark]
+  See http://volnitsky.com/project/lvvlib/array[example use of benchmark]
 
+Currently there is only '"asciidoc"' (which is default) style recognized by MPLW.
+If MPL version is below or equal 0.092, then style is ignored.  When style is a '"asciidoc"', mplw will:
+
+- adjust figure borders sizes to accommodate tick text and x/ylabel text.
+  MPL does not do it automatically, it only have correct frame size if image have default size.
+- enable grid.
+- set figure frame background to light grey and darker grey for frame
+  border. Note: there is bug in MPL, borders drawn not on all sides.
 
 About
 -----
@@ -102,8 +104,6 @@ Todo
 * PNG size should be specified in filter parameters and passed to MPLW (I don't know how to do this)
 * PNG should be centered be default or at least filter should accept param `align=center` (don't know how to do this)
 * SVG? (MPL can generate SVG)
-* DITAA? Http://ditaa.sourceforge.net[DIagrams Through Ascii Art],
-  Http://blog.m3r.nl/personal/full-text-based-document-generation-using-asciidoc[Full text-based document generation using asciidoc and ditaa]
 
 
 .References
@@ -111,5 +111,7 @@ Todo
 - [[[2]]]   http://matplotlib.sourceforge.net[MatPlotLib - python plotting library]
 - [[[3]]]   http://code.google.com/p/scitools/wiki/EasyvizDocumentation[Easyviz - Python library for scientific computing]
 - [[[4]]]   http://detexify.kirelabs.org/classify.html[drawing to  LaTeX symbol]
+- [[[5]]]   httpx://ditaa.sourceforge.net[DIagrams Through Ascii Art],
+- [[[6]]]   httpx://blog.m3r.nl/personal/full-text-based-document-generation-using-asciidoc[Full text-based document generation using asciidoc and ditaa]
 
 // vim:ts=8 ft=asciidoc:
