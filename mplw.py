@@ -128,7 +128,7 @@ OPTIONS
             str_ver=matplotlib.__version__.split('.')
             ver=float(str_ver[0]) + float(str_ver[1])/1000
 
-            if    self.options.style == 'asciidoc'   and   ver > 0.092:  
+            if    self.options.style == 'asciidoc'   and   ver > 0.92:  
 
                 auto_adjust(gcf())
 

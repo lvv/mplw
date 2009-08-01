@@ -2,6 +2,9 @@
 MPLW - Matplotlib  AsciiDoc filter
 ==================================
 
+:html_description:	Matplotlib (MPL) is python charting library, with function similar to Gnuplot and interface modelled on Matlab API. AsciiDoc is converter from ascii text files (with human readable markup) to html and other doc formats. This site is made with AsciiDoc.  The MPLW is MPL wrapper, which can work as AsciiDoc filter.  This means that AsciiDoc document can have snippets of MPL commands to generate charts. 
+:html_keywords:		scientific, visulaization
+
 include::summary.txt[]
 
 
@@ -11,7 +14,7 @@ Introduction
 Let say we need 'sin(x)' chart like this:
 include::example-sin.txt[]
 
-For this we include following MPL code snippet:
+We just include in asciidoc document following MPL code snippet:
 ---------------------------------------
 include::example-sin.txt[]
 ---------------------------------------
@@ -56,7 +59,8 @@ cd mplw.git
 make install          # this will create 2 files: /etc/asciidoc/filters/mpl/{mpl.conf,mplw.py}
 ---------------------------------------------
 
-Matplotlib version 0.098 or higher required.
+MPLW was tested only with Matplotlib version 0.98.
+httpx://github.com/lvv/mplw/issues[Let me know] (or by mailto:leonid@volnitsky.com[email]) if something is not working for you.
 
 
 
@@ -77,7 +81,7 @@ from numpy import *
   in MPL code, not in MPLW. I will send patch to MPL project.
   See http://volnitsky.com/project/lvvlib/array[example use of benchmark]
 
-Currently there is only '"asciidoc"' (which is default) style recognized by MPLW.
+Currently there is '"asciidoc"' -- only and default style recognized by MPLW.
 If MPL version is below or equal 0.092, then style is ignored.  When style is a '"asciidoc"', mplw will:
 
 - adjust figure borders sizes to accommodate tick text and x/ylabel text.
@@ -100,7 +104,6 @@ Todo
 * When mplw.py used not as asciidoc filter (but as utility generating PNGs from text files):
   - if title not set take file name as title
   - if multiple input files specified: make one overlay-ed chart
-* Styles selection (now it forces lvv_style)
 * PNG size should be specified in filter parameters and passed to MPLW (I don't know how to do this)
 * PNG should be centered be default or at least filter should accept param `align=center` (don't know how to do this)
 * SVG? (MPL can generate SVG)
@@ -113,5 +116,6 @@ Todo
 - [[[4]]]   http://detexify.kirelabs.org/classify.html[drawing to  LaTeX symbol]
 - [[[5]]]   httpx://ditaa.sourceforge.net[DIagrams Through Ascii Art],
 - [[[6]]]   httpx://blog.m3r.nl/personal/full-text-based-document-generation-using-asciidoc[Full text-based document generation using asciidoc and ditaa]
+- [[[7]]]   http://kaioa.com/node/45[How to Configure Apache to Serve SVG/SVGZ the Right Way]
 
 // vim:ts=8 ft=asciidoc:
