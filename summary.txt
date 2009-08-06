@@ -1,6 +1,4 @@
-Matplotlib (MPL) is python charting library, with function similar to Gnuplot
-and interface modelled on Matlab API.  AsciiDoc is converter from ascii text
-files (with human readable markup) to html and other
-doc formats. This site is made with AsciiDoc. 
-The MPLW is MPL wrapper, which can work as AsciiDoc filter.  This means
-that AsciiDoc document can have snippets of MPL commands to generate charts.
+
+The MPLW is Matplotlib (MPL) wrapper, which can work as AsciiDoc filter. 
+Using this filter you can generate charts from inline matplotlib scripts.
+

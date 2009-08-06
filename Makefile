@@ -3,7 +3,7 @@ HOMEDIR ?= /home/lvv/p/volnitsky.com/
 include $(HOMEDIR)/include.mk
 CLEAN_LIST += *.png
 
-inedex.html: example*.txt
+inedex.html: example*.txt force-rebuild
 
 %.png : %.mplw
 	cat $< | mplw.py - -o $@
