@@ -88,6 +88,15 @@ OPTIONS
         try:
             #########################################################  lvv
 
+            ####  check MPL version
+
+            str_ver=matplotlib.__version__.split('.')
+            ver=float(str_ver[0]) + float(str_ver[1])/1000
+            if    ver < 0.098:   # sic, this is for 0.92, devider for minor ver is 1000
+                print "mplw error:  matplotlib is too old"
+                sys.exit(2)
+
+
             ####  READ PY CODE
 
             eval_lines=''
@@ -125,11 +134,8 @@ OPTIONS
 
             exec eval_lines
 
-            str_ver=matplotlib.__version__.split('.')
-            ver=float(str_ver[0]) + float(str_ver[1])/1000
-            #print "*** ver=", ver
 
-            if    self.options.style == 'asciidoc'   and   ver > 0.092:   # sic, this is for 0.92, devider for minor ver is 1000
+            if    self.options.style == 'asciidoc':   # sic, this is for 0.92, devider for minor ver is 1000
 
                 auto_adjust(gcf())
 

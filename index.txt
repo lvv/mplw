@@ -64,40 +64,27 @@ make install          # this will create 2 files: /etc/asciidoc/filters/mpl/{mpl
 Matplotlib is pre-1.0 version which means it has
 httpx://matplotlib.sourceforge.net/api/api_changes.html[unstable API].
 From this are very stringent dependencies version requirements.
+Using bleeding edge and installing from source might be required.
 
-MPLW require Matplotlib version 0.98.  It won't work with lower versions, but it might work with higher (not tested).
-Matplotlib-0.98 is not compatible with python-2.6. 
+MPLW require Matplotlib version 0.98 higher.  It won't work with lower versions.
+Matplotlib-0.98 is not compatible with python-2.6, version 0.99 is compatible with python-2.6. 
 See also http://matplotlib.sourceforge.net/users/installing.html[matplotlib install instruction].
 
-As of 8/5/2009, current upstream versions:
-
-* matplotlib-0.99_rc2
+.Upstream "best" versions As of 8/9/2009:
+* matplotlib-0.99
 * python-2.6.2
-
-All distros are more more or less behind upstream.
 
 .Gentoo
 ***********************************************************
-.Current stable versions:
-* matplotlib-0.98
+.Current best versions:
+* matplotlib-0.99
 * python-2.6.2
-
-Gentoo is continuasly updated distro and after it recently upgraded to
-python-2.6 the matplotlib became broken.
-Workaround is to downgrade to python-2.5: 
-
---------------------------
-echo '>=dev-lang/python-2.6' >> /etc/portage/package.mask
-emerge -1v `equery -q d dev-lang/python |sed 's/-[^/]*$//'`
-revdep-rebuild
----------------------------
 
 **********************************************************
 
 .Ubuntu-8.04 
 **********************************************************
-Current stable versions:
-
+.Current best versions:
 * matplotlib-0.91.2 (?)
 * python-2.5.2 (?)
 
@@ -108,12 +95,12 @@ mailto:leonid@volnitsky.com[Let me know], if you will find workaround.
 
 .Ubuntu-9.04 
 **********************************************************
-Current stable versions:
-
+.Current stable versions:
 * matplotlib-0.98.5.2
 * python-?
 
 ********************************************************
+
 
 
 ///////////////////////////////////////////////////////////////////
@@ -150,7 +137,7 @@ from numpy import *
   See http://volnitsky.com/project/lvvlib/array[example use of benchmark]
 
 Currently there is '"asciidoc"' -- only and default style recognized by MPLW.
-If MPL version is below or equal 0.92, then style is ignored.  When style is a '"asciidoc"', mplw will:
+When style is a '"asciidoc"', mplw will:
 
 - adjust figure borders sizes to accommodate tick text and x/ylabel text.
   MPL does not do it automatically, it only have correct frame size if image have default size.
