@@ -80,6 +80,22 @@ See also http://matplotlib.sourceforge.net/users/installing.html[matplotlib inst
 * matplotlib-0.99
 * python-2.6.2
 
+Though MPL 0.98 -->  0.99 upgrade was in part to make it compatible with
+python-2.6, I was not able to install MPL with 2.6.
+But python is slotted package so all you might need is `eselect python ...` to 2.5
+prior to installing matplotlib. Alternatively you can mask python-2.6:
+
+----------------------
+echo ">=dev-lang/python-2.6" >> /etc/portage/package.mask
+------------------------
+
+You also might need to mark numpy-1.3.0 as stable:
+
+--------------------
+echo "=dev-python/numpy-1.3.0  **" >> /etc/portage/package.keyword
+--------------------
+
+
 **********************************************************
 
 .Ubuntu-8.04 
@@ -95,7 +111,7 @@ mailto:leonid@volnitsky.com[Let me know], if you will find workaround.
 
 .Ubuntu-9.04 
 **********************************************************
-.Current stable versions:
+.Current best versions:
 * matplotlib-0.98.5.2
 * python-?
 
