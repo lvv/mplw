@@ -93,9 +93,7 @@ OPTIONS
             str_ver=matplotlib.__version__.split('.')
             ver=float(str_ver[0]) + float(str_ver[1])/1000
             if    ver < 0.098:   # sic, this is for 0.92, devider for minor ver is 1000
-                print "mplw error:  matplotlib is too old"
-                sys.exit(2)
-
+                sys.stderr.write('mplw warning: for mutplotlib version < 0.98 styles are disabled')
 
             ####  READ PY CODE
 

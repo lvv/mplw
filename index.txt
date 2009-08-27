@@ -66,7 +66,8 @@ httpx://matplotlib.sourceforge.net/api/api_changes.html[unstable API].
 From this are very stringent dependencies version requirements.
 Using bleeding edge and installing from source might be required.
 
-MPLW require Matplotlib version 0.98 higher.  It won't work with lower versions.
+MPLW works best with Matplotlib version 0.98 higher.  With lower versions MPLW style will be set to "none".
+You can style your plot by using MutPlotLib commands in snippet.
 Matplotlib-0.98 is not compatible with python-2.6, version 0.99 is compatible with python-2.6. 
 See also http://matplotlib.sourceforge.net/users/installing.html[matplotlib install instruction].
 
@@ -104,7 +105,6 @@ echo "=dev-python/numpy-1.3.0  **" >> /etc/portage/package.keyword
 * matplotlib-0.91.2 (?)
 * python-2.5.2 (?)
 
-Won't work, matplotlib is too old. 
 mailto:leonid@volnitsky.com[Let me know], if you will find workaround.
 
 ********************************************************
