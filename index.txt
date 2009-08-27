@@ -67,7 +67,7 @@ From this are very stringent dependencies version requirements.
 Using bleeding edge and installing from source might be required.
 
 MPLW works best with Matplotlib version 0.98 or higher.  With lower versions MPLW style will be set to "none".
-You can style your plot by using Mutplotlib commands in snippet.
+But you can style your plot by using Mutplotlib commands in snippet.
 Matplotlib-0.98 is not compatible with python-2.6, version 0.99 is compatible with python-2.6. 
 See also http://matplotlib.sourceforge.net/users/installing.html[matplotlib install instruction].
 
@@ -90,7 +90,7 @@ prior to installing matplotlib. Alternatively you can mask python-2.6:
 echo ">=dev-lang/python-2.6" >> /etc/portage/package.mask
 ------------------------
 
-You also might need to mark numpy-1.3.0 as stable:
+You also might need (?) to mark numpy-1.3.0 as stable:
 
 --------------------
 echo "=dev-python/numpy-1.3.0  **" >> /etc/portage/package.keyword
@@ -146,8 +146,8 @@ from numpy import *
   in MPL code, not in MPLW. I will send patch to MPL project.
   See http://volnitsky.com/project/lvvlib/array[example use of benchmark]
 
-Currently there is '"asciidoc"' -- only and default style recognized by MPLW.
-When style is a '"asciidoc"', mplw will:
+Currently there is `"asciidoc"` -- only and default style recognized by MPLW.
+When style is a `"asciidoc"`, mplw will:
 
 - adjust figure borders sizes to accommodate tick text and x/ylabel text.
   MPL does not do it automatically, it only have correct frame size if image have default size.
@@ -157,7 +157,7 @@ When style is a '"asciidoc"', mplw will:
 
 About
 -----
-MPLW is based on GNU licensed graphviz2png.py by Gouichi Iisaka. 
+MPLW is based on GNU licensed 'graphviz2png.py' by Gouichi Iisaka. 
 MPLW is currently in alpha state, API not yet stable. 
 
 

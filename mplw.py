@@ -94,6 +94,7 @@ OPTIONS
             ver=float(str_ver[0]) + float(str_ver[1])/1000
             if    ver < 0.098:   # sic, this is for 0.92, devider for minor ver is 1000
                 sys.stderr.write('mplw warning: for mutplotlib version < 0.98 styles are disabled')
+                self.options.style = 'none'
 
             ####  READ PY CODE
 
@@ -146,8 +147,12 @@ OPTIONS
 
                 savefig(outfile, facecolor='0.95', edgecolor='0.8') # MPL bug? not all edges(borders) are drawn
                 # TODO axes.linewidth      : 1.0     # edge linewidth
-            else:
+            else
                 savefig(outfile)
+
+                if    self.options.style != 'none'::
+                    sys.stderr.write('mplw warning: unknown style - ignored')
+                   
             #########################################################
 
         finally:
