@@ -104,9 +104,6 @@ echo "=dev-python/numpy-1.3.0  **" >> /etc/portage/package.keyword
 .Current best versions:
 * matplotlib-0.91.2 (?)
 * python-2.5.2 (?)
-
-mailto:leonid@volnitsky.com[Let me know], if you will find workaround.
-
 ********************************************************
 
 .Ubuntu-9.04 
@@ -114,9 +111,7 @@ mailto:leonid@volnitsky.com[Let me know], if you will find workaround.
 .Current best versions:
 * matplotlib-0.98.5.2
 * python-?
-
 ********************************************************
-
 
 
 ///////////////////////////////////////////////////////////////////
