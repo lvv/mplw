@@ -163,14 +163,14 @@ MPLW is currently in alpha state, API not yet stable.
 
 Todo
 ----
-* Code cleanup and make tabs size consistent in mplw.py source
-* Testing was done only with xhtml11 backend
-* For inline-data add optional column header line,  which can be used for plot legend
+* Make normal chart font to match page font/font-size.  Needs some JavaScript magic to do this.  Don't know how o do this.
+* Code cleanup and make tabs size consistent in mplw.py source.
+* For inline-data add optional column header line,  which can be used for plot legend.
 * When mplw.py used not as asciidoc filter (but as utility generating PNGs from text files):
   - if title not set take file name as title
   - if multiple input files specified: make one overlay-ed chart
-* PNG size should be specified in filter parameters and passed to MPLW (I don't know how to do this)
-* PNG should be centered be default or at least filter should accept param `align=center` (don't know how to do this)
+* PNG size should be specified in filter parameters and passed to MPLW. I don't know how to do this
+* PNG should be centered be default or at least filter should accept param `align=center`. I don't know how to do this.
 * SVG? (MPL can generate SVG)
 
 

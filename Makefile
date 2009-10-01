@@ -1,7 +1,19 @@
 
-HOMEDIR ?= /home/lvv/p/volnitsky.com/
-include $(HOMEDIR)/include.mk
+ifeq ($(USER),lvv)
+	HOMEDIR := /home/lvv/p/volnitsky.com/
+	INCLUDE := $(HOMEDIR)/include.mk 
+else
+	INCLUDE := /dev/null
+endif
+
+include $(INCLUDE)
+
 CLEAN_LIST += *.png
+
+mplw:
+	rm -f t.png
+	cat t.mplw  |  mplw.py -o t.png  - 
+	display t.png
 
 inedex.html: example*.txt force-rebuild
 
@@ -11,12 +23,6 @@ inedex.html: example*.txt force-rebuild
 t.html:  t.ad *.py *.conf 
 	rm -f .*.png
 	asciidoc --unsafe  $<   &&   firefox  $@
-
-mplw:
-	rm -f t.png
-	cat t.mplw  |  mplw.py -o t.png  - 
-	display t.png
-
 
 
 install:
