@@ -13,7 +13,7 @@ endif
 include $(INCLUDE)
 
 CLEAN_LIST += $(wildcard *.png)
-COPYN_LIST += $(wildcard *.png)
+COPY_LIST += $(wildcard *.png)
 
 
 mplw:
