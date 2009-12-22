@@ -19,6 +19,11 @@ We just include following MPL code snippet:
 ---------------------------------------
 include::example-sin.txt[]
 ---------------------------------------
+
+On first line in square brackets there are two parameters. First -  "mpl"  is name
+of asciidoc filter.  Second is file name of your choice to store generated
+chart 
+
 Asciidoc will send inline python code between "----" lines to stdin of mplw.py,
 and generate HTML file with <img ...> tag for MPLW produced PNG file. 
 
@@ -44,9 +49,10 @@ include::example-data.txt[]
 ---------------------------------------
 
 Text after +"____"+ is plot data in table form.  The c[][] is matrix where c[0] is vector
-holding 1st column from above table, c[1] is second column and so on.
+holding 1st column from above table, c[1] is second column and so on.  You can
+store plot data in in external file if needed, see matplotlib manual.
 
-See also http://matplotlib.sourceforge.net/gallery.html[matplotlib gallery].
+To see what MatPlotLib is capable of go to http://matplotlib.sourceforge.net/gallery.html[matplotlib gallery].
 
 
 Install
@@ -57,12 +63,16 @@ Replace `emerge` with your distro package manager:
 emerge -u matplotlib git 
 git clone git://github.com/lvv/mplw.git
 cd mplw.git
-make install          # this will create 2 files: /etc/asciidoc/filters/mpl/{mpl.conf,mplw.py}
+make install          # this will create 2 files: /usr/share/asciidoc/filters/mpl/{mpl.conf,mplw.py}
 ---------------------------------------------
+
+Your disros might have different location for storing asciidoc's filters.
+Default is `/usr/share/asciidoc/filters`.  If this is not the case, you need to
+modify `ASCIIDOC_FILTERS` variable in Makefile.
 
 [CAUTION]
 Matplotlib is pre-1.0 version which means it has
-httpx://matplotlib.sourceforge.net/api/api_changes.html[unstable API].
+httpx://matplotlib.sourceforge.net/api/api_changes.html[unstable API] and it might be not easy to install.
 From this are very stringent dependencies version requirements.
 Using bleeding edge and installing from source might be required.
 
@@ -72,31 +82,18 @@ Matplotlib-0.98 is not compatible with python-2.6, version 0.99 is compatible wi
 See also http://matplotlib.sourceforge.net/users/installing.html[matplotlib install instruction].
 
 .Upstream "best" versions As of 8/9/2009:
-* matplotlib-0.99
+* matplotlib-0.99.1
 * python-2.6.2
 
 .Gentoo
 ***********************************************************
 .Current best versions:
-* matplotlib-0.99
+* matplotlib-0.99.1.1
 * python-2.6.2
 
-Though MPL 0.98 -->  0.99 upgrade was in part to make it compatible with
-python-2.6, I was not able to install MPL with 2.6.
-But python is slotted package so all you might need is `eselect python ...` to 2.5
-prior to installing matplotlib. Alternatively you can mask python-2.6:
-
-----------------------
-echo ">=dev-lang/python-2.6" >> /etc/portage/package.mask
-------------------------
-
-You also might need (?) to mark numpy-1.3.0 as stable:
-
---------------------
-echo "=dev-python/numpy-1.3.0  **" >> /etc/portage/package.keyword
---------------------
-
+You might need to re-install `dev-python/pycxx` in order to install matplotlib.
 **********************************************************
+
 
 .Ubuntu-8.04 
 **********************************************************
@@ -163,15 +160,15 @@ MPLW is currently in alpha state, API not yet stable.
 
 Todo
 ----
-* Make normal chart font to match page font/font-size.  Needs some JavaScript magic to do this.  Don't know how o do this.
-* Code cleanup and make tabs size consistent in mplw.py source.
+* Make normal chart font to match page font/font-size.  Needs some JavaScript magic to do this.  Don't know how to do this.
 * For inline-data add optional column header line,  which can be used for plot legend.
-* When mplw.py used not as asciidoc filter (but as utility generating PNGs from text files):
+* When mplw.py used not as asciidoc filter,  but as stand alone utility generating PNGs from text files:
   - if title not set take file name as title
   - if multiple input files specified: make one overlay-ed chart
 * PNG size should be specified in filter parameters and passed to MPLW. I don't know how to do this
-* PNG should be centered be default or at least filter should accept param `align=center`. I don't know how to do this.
+* PNG should be centered by default or at least filter should accept param `align=center`. I don't know how to do this.
 * SVG? (MPL can generate SVG)
+* Code cleanup and make tabs size consistent in mplw.py source.
 
 
 .References
