@@ -16,7 +16,8 @@ Let say we need include 'sin(x)' plot below into asciidoc document.
 include::example-sin.txt[]
 
 We just include following MPL code snippet:
----------------------------------------
+
+-------------------------------------------
 include::example-sin.txt[]
 ---------------------------------------
 
@@ -44,9 +45,11 @@ digraph G {
 Now let say we have some data from two experiments and we need to plot it:
 include::example-data.txt[]
 It can be made with this snippet:
----------------------------------------
+
+--------------------------------
 include::example-data.txt[]
----------------------------------------
+-------------------------------
+
 
 Text after +"____"+ is plot data in table form.  The c[][] is matrix where c[0] is vector
 holding 1st column from above table, c[1] is second column and so on.  You can
@@ -70,6 +73,7 @@ Your disros might have different location for storing asciidoc's filters.
 Default is `/usr/share/asciidoc/filters`.  If this is not the case, you need to
 modify `ASCIIDOC_FILTERS` variable in Makefile.
 
+////////////////////
 [CAUTION]
 Matplotlib is pre-1.0 version which means it has
 httpx://matplotlib.sourceforge.net/api/api_changes.html[unstable API] and it might be not easy to install.
@@ -80,6 +84,7 @@ MPLW works best with Matplotlib version 0.98 or higher.  With lower versions MPL
 But you can style your plot by using Mutplotlib commands in snippet.
 Matplotlib-0.98 is not compatible with python-2.6, version 0.99 is compatible with python-2.6. 
 See also http://matplotlib.sourceforge.net/users/installing.html[matplotlib install instruction].
+
 
 .Upstream "best" versions As of 8/9/2009:
 * matplotlib-0.99.1
@@ -110,7 +115,7 @@ You might need to re-install `dev-python/pycxx` in order to install matplotlib.
 ********************************************************
 
 
-///////////////////////////////////////////////////////////////////
+
 matplotlib 0.98.5.1	<=python-2.6 
 matploblib-0.91.1 	<numpy-1.2.1
 matplotlib-0.9.1	<numpy-1.1.0 
@@ -139,9 +144,12 @@ from numpy import *
 * If there is inline plot data, MPLW fills in 'c' matrix.  If entry looks like number it is converted to float. 
 * If 'style' is other then `"none"`, then it is applied.
 * After MPL inline code evaluated,  mplw.py writes chart PNG file. You must not call MPL's show() function.
+
+//////////////////
 * There is also plotting function 'benchmark' available, based on 'barh'.  It should probably be
   in MPL code, not in MPLW. I will send patch to MPL project.
   See http://volnitsky.com/project/lvvlib/array[example use of benchmark]
+/////////////////////
 
 Currently there is `"asciidoc"` -- only and default style recognized by MPLW.
 When style is a `"asciidoc"`, mplw will:
@@ -155,7 +163,7 @@ When style is a `"asciidoc"`, mplw will:
 About
 -----
 MPLW is based on GNU licensed 'graphviz2png.py' by Gouichi Iisaka. 
-MPLW is currently in alpha state, API not yet stable. 
+MPLW is currently in alpha state.
 
 
 Todo
@@ -179,5 +187,7 @@ Todo
 - [[[5]]]   httpx://ditaa.sourceforge.net[DIagrams Through Ascii Art],
 - [[[6]]]   httpx://blog.m3r.nl/personal/full-text-based-document-generation-using-asciidoc[Full text-based document generation using asciidoc and ditaa]
 - [[[7]]]   http://kaioa.com/node/45[How to Configure Apache to Serve SVG/SVGZ the Right Way]
+- [[[8]]]   http://igraph.sourceforge.net/[Igraph - free software for creating and manipulating undirected and directed graphs.]
+- [[[9]]]   http://www.w3.org/Graphics/SVG/IG/resources/svgprimer.html[An SVG Primer]
 
 // vim:ts=8 ft=asciidoc:

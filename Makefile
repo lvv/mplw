@@ -25,7 +25,8 @@ mplw:
 %.png : %.mplw
 	cat $< | mplw.py - -o $@
 
-index.html: example-data.txt example-sin.txt
+#index.html: example-data.png example-sin.png
+#index.html: 
 
 localweb: example-data.png example-sin.png
 
