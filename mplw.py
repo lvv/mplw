@@ -244,7 +244,7 @@ def auto_adjust(fig):
 
     # righ margin
     right_margin = 1.5  # em
-    fig.subplots_adjust(right=1-fontsize/72/w * right_margin)
+    #fig.subplots_adjust(right=1.0-fontsize/72/w * right_margin, hspace=0.2)
 
 
 if __name__ == "__main__":
